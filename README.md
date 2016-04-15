@@ -4,6 +4,9 @@
 
 At present, the code is written in two languages: *Mathematica* and *Python*. If you are interested in an implementation in another language, please get in touch and we'll do what we can to add it.
 
+For the Python code, we provide a Jupyter Notebook with basic usage and examples. A static version of the notebook can also be viewed [here](http://nbviewer.jupyter.org/github/bradkav/runDM/blob/master/python/runDM-examples.ipynb).
+
+
 If the comedy value of the name `runDM` isn't immediately apparent, just wait for version 3!
 
 Please contact Bradley Kavanagh (bradkav@gmail.com) for any questions, problems, bugs and suggestions.
