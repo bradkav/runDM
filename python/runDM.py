@@ -51,7 +51,7 @@ def setBenchmark(benchmark):
         return np.array([0.0,0.0,0.0,-1.0,1.0,0.0,0.0,0.0,-1.0,1.0,0.0,0.0,0.0,-1.0,1.0,0.0])
     elif (benchmark == "ThirdVector"):
         return np.array([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,1.0,0.0])
-    elif (benchmark == "ThirdVector"):
+    elif (benchmark == "ThirdAxial"):
         return np.array([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-1.0,1.0,1.0,-1.0,1.0,0.0])
     
     else:
@@ -67,6 +67,11 @@ def evolutionMat(E1, E2):
     """
     EvolveMat...
     """
+    
+    #Do bounds checking...
+    
+    #Check for E2 < 1
+    #Precalculate the SMEM evolution matrix
 
     #Both energies below the Z-scale
     if ((E1 < mZ)and(E2 < mZ)):
@@ -90,19 +95,25 @@ def evolutionMat(E1, E2):
     
     return Emat
     
+    
 #%%
 def evolveCouplings(c, E1, E2):
     """
     evolveCouplings...
     """
+    
+    #Need to check for size of c
+    
     return np.dot(evolutionMat(E1, E2), c)
 
-    
+
 #%%
 def lightqCouplings(c, E1, E2):
     """
     lightqCouplings...
     """
+    #Might just want to fix E2...
+    
     cf = evolveCouplings(c, E1, E2)
     return cf[[0,1,3,8,9,11]]
     

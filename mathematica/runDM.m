@@ -1,37 +1,40 @@
 (* ::Package:: *)
 
+(* ::Input:: *)
+(*tester[x_]:= x^2*)
+
+
 (* ::Title:: *)
 (*Analytical Solution (just run it!)*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*MATCHING AT THE Z POLE*)
 
 
-(* ::Input:: *)
-(*sin2thetamZ=0.23126;*)
-(*UmatchTEMP=1/2 ({*)
-(* {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2gVu},*)
-(* {1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2gVd},*)
-(* {0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2gVu},*)
-(* {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2gVd},*)
-(* {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 2gVd},*)
-(* {0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2gVe},*)
-(* {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 2gVe},*)
-(* {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2gVe},*)
-(* {-1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2gAu},*)
-(* {-1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2gAd},*)
-(* {0, 0, 0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2gAu},*)
-(* {0, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2gAd},*)
-(* {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 1, 0, 0, 2gAd},*)
-(* {0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2gAe},*)
-(* {0, 0, 0, 0, 0, 0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 2gAe},*)
-(* {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 1, 2gAe}*)
-(*});*)
-(*Umatch=UmatchTEMP/.gVu->1/2-4/3 swsquared/.gAu->-(1/2)/.gVd->-(1/2)+2/3 swsquared/.gAd->1/2/.gVe->-(1/2)+2swsquared/.gAe->1/2/.swsquared->sin2thetamZ;*)
+sin2thetamZ=0.23126;
+UmatchTEMP=1/2 ({
+ {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2gVu},
+ {1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2gVd},
+ {0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2gVu},
+ {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2gVd},
+ {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 2gVd},
+ {0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2gVe},
+ {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 2gVe},
+ {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2gVe},
+ {-1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2gAu},
+ {-1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2gAd},
+ {0, 0, 0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2gAu},
+ {0, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2gAd},
+ {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 1, 0, 0, 2gAd},
+ {0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2gAe},
+ {0, 0, 0, 0, 0, 0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 2gAe},
+ {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 1, 2gAe}
+});
+Umatch=UmatchTEMP/.gVu->1/2-4/3 swsquared/.gAu->-(1/2)/.gVd->-(1/2)+2/3 swsquared/.gAd->1/2/.gVe->-(1/2)+2swsquared/.gAe->1/2/.swsquared->sin2thetamZ;
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ANOMALOUS DIMENSIONS - general form*)
 
 
@@ -39,60 +42,56 @@
 (*Yukawa Interactions*)
 
 
-(* ::Input:: *)
-(*OneGenerationBlock=({*)
-(* {(Subscript[\[Lambda], u]^2+Subscript[\[Lambda], d]^2)/2, -Subscript[\[Lambda], u]^2/2, -Subscript[\[Lambda], d]^2/2, 0, 0, (Subscript[\[Lambda], u]^2+Subscript[\[Lambda], d]^2)/2},*)
-(* {-Subscript[\[Lambda], u]^2, Subscript[\[Lambda], u]^2, 0, 0, 0, Subscript[\[Lambda], u]^2},*)
-(* {-Subscript[\[Lambda], d]^2, 0, Subscript[\[Lambda], d]^2, 0, 0, Subscript[\[Lambda], d]^2},*)
-(* {0, 0, 0, Subscript[\[Lambda], e]^2/2, -(Subscript[\[Lambda], e]^2/2), Subscript[\[Lambda], e]^2/2},*)
-(* {0, 0, 0, -Subscript[\[Lambda], e]^2, Subscript[\[Lambda], e]^2, Subscript[\[Lambda], e]^2},*)
-(* {3(Subscript[\[Lambda], u]^2-Subscript[\[Lambda], d]^2), -3 Subscript[\[Lambda], u]^2, 3Subscript[\[Lambda], d]^2, -Subscript[\[Lambda], e]^2, Subscript[\[Lambda], e]^2, 3(Subscript[\[Lambda], u]^2+Subscript[\[Lambda], d]^2)+Subscript[\[Lambda], e]^2}*)
-(*});*)
-(*SM1=OneGenerationBlock;*)
-(*SM2=OneGenerationBlock/.Subscript[\[Lambda], u]->Subscript[\[Lambda], c]/.Subscript[\[Lambda], d]->Subscript[\[Lambda], s]/.Subscript[\[Lambda], e]->Subscript[\[Lambda], \[Mu]];*)
-(*SM3=OneGenerationBlock/.Subscript[\[Lambda], u]->Subscript[\[Lambda], t]/.Subscript[\[Lambda], d]->Subscript[\[Lambda], b]/.Subscript[\[Lambda], e]->Subscript[\[Lambda], \[Tau]];*)
-(*ZeroBlock={0,0,0,0,0};*)
-(*First5Rows=Table[Flatten[Append[Append[Append[Table[SM1[[j,i]],{i,1,5}],ZeroBlock],ZeroBlock],SM1[[j,6]]]],{j,1,5}];*)
-(*Second5Rows=Table[Flatten[Append[Append[Append[ZeroBlock,Table[SM2[[j,i]],{i,1,5}]],ZeroBlock],SM2[[j,6]]]],{j,1,5}];*)
-(*Third5Rows=Table[Flatten[Append[Append[Append[ZeroBlock,ZeroBlock],Table[SM3[[j,i]],{i,1,5}]],SM3[[j,6]]]],{j,1,5}];*)
-(*LastRow=Flatten[Append[Append[Append[Table[SM1[[6,i]],{i,1,5}],Table[SM2[[6,i]],{i,1,5}]],Table[SM3[[6,i]],{i,1,5}]],SM1[[6,6]]+SM2[[6,6]]+SM3[[6,6]]]];*)
-(*GammaYukawaSYMB=1/(8Pi^2) Append[Flatten[Join[{First5Rows,Second5Rows,Third5Rows}],1],LastRow];*)
+OneGenerationBlock=({
+ {(Subscript[\[Lambda], u]^2+Subscript[\[Lambda], d]^2)/2, -Subscript[\[Lambda], u]^2/2, -Subscript[\[Lambda], d]^2/2, 0, 0, (Subscript[\[Lambda], u]^2+Subscript[\[Lambda], d]^2)/2},
+ {-Subscript[\[Lambda], u]^2, Subscript[\[Lambda], u]^2, 0, 0, 0, Subscript[\[Lambda], u]^2},
+ {-Subscript[\[Lambda], d]^2, 0, Subscript[\[Lambda], d]^2, 0, 0, Subscript[\[Lambda], d]^2},
+ {0, 0, 0, Subscript[\[Lambda], e]^2/2, -(Subscript[\[Lambda], e]^2/2), Subscript[\[Lambda], e]^2/2},
+ {0, 0, 0, -Subscript[\[Lambda], e]^2, Subscript[\[Lambda], e]^2, Subscript[\[Lambda], e]^2},
+ {3(Subscript[\[Lambda], u]^2-Subscript[\[Lambda], d]^2), -3 Subscript[\[Lambda], u]^2, 3Subscript[\[Lambda], d]^2, -Subscript[\[Lambda], e]^2, Subscript[\[Lambda], e]^2, 3(Subscript[\[Lambda], u]^2+Subscript[\[Lambda], d]^2)+Subscript[\[Lambda], e]^2}
+});
+SM1=OneGenerationBlock;
+SM2=OneGenerationBlock/.Subscript[\[Lambda], u]->Subscript[\[Lambda], c]/.Subscript[\[Lambda], d]->Subscript[\[Lambda], s]/.Subscript[\[Lambda], e]->Subscript[\[Lambda], \[Mu]];
+SM3=OneGenerationBlock/.Subscript[\[Lambda], u]->Subscript[\[Lambda], t]/.Subscript[\[Lambda], d]->Subscript[\[Lambda], b]/.Subscript[\[Lambda], e]->Subscript[\[Lambda], \[Tau]];
+ZeroBlock={0,0,0,0,0};
+First5Rows=Table[Flatten[Append[Append[Append[Table[SM1[[j,i]],{i,1,5}],ZeroBlock],ZeroBlock],SM1[[j,6]]]],{j,1,5}];
+Second5Rows=Table[Flatten[Append[Append[Append[ZeroBlock,Table[SM2[[j,i]],{i,1,5}]],ZeroBlock],SM2[[j,6]]]],{j,1,5}];
+Third5Rows=Table[Flatten[Append[Append[Append[ZeroBlock,ZeroBlock],Table[SM3[[j,i]],{i,1,5}]],SM3[[j,6]]]],{j,1,5}];
+LastRow=Flatten[Append[Append[Append[Table[SM1[[6,i]],{i,1,5}],Table[SM2[[6,i]],{i,1,5}]],Table[SM3[[6,i]],{i,1,5}]],SM1[[6,6]]+SM2[[6,6]]+SM3[[6,6]]]];
+GammaYukawaSYMB=1/(8Pi^2) Append[Flatten[Join[{First5Rows,Second5Rows,Third5Rows}],1],LastRow];
 
 
 (* ::Subsubsection:: *)
 (*Hypercharge Interactions*)
 
 
-(* ::Input:: *)
-(*ArrayOfHypercharges={Subscript[y, q],Subscript[y, u],Subscript[y, d],Subscript[y, l],Subscript[y, e],Subscript[y, q],Subscript[y, u],Subscript[y, d],Subscript[y, l],Subscript[y, e],Subscript[y, q],Subscript[y, u],Subscript[y, d],Subscript[y, l],Subscript[y, e],Subscript[y, H]};*)
-(*ArrayOfColorNumber={3,3,3,1,1,3,3,3,1,1,3,3,3,1,1,1};*)
-(*ArrayOfWeakNumber={2,1,1,2,1,2,1,1,2,1,2,1,1,2,1,1};*)
-(*GammaHyperchargeSYMB=4/3 gprime^2/(16Pi^2) Table[ArrayOfColorNumber[[j]]ArrayOfWeakNumber[[j]] ArrayOfHypercharges[[i]]ArrayOfHypercharges[[j]],{i,1,16},{j,1,16}];*)
+ArrayOfHypercharges={Subscript[y, q],Subscript[y, u],Subscript[y, d],Subscript[y, l],Subscript[y, e],Subscript[y, q],Subscript[y, u],Subscript[y, d],Subscript[y, l],Subscript[y, e],Subscript[y, q],Subscript[y, u],Subscript[y, d],Subscript[y, l],Subscript[y, e],Subscript[y, H]};
+ArrayOfColorNumber={3,3,3,1,1,3,3,3,1,1,3,3,3,1,1,1};
+ArrayOfWeakNumber={2,1,1,2,1,2,1,1,2,1,2,1,1,2,1,1};
+GammaHyperchargeSYMB=4/3 gprime^2/(16Pi^2) Table[ArrayOfColorNumber[[j]]ArrayOfWeakNumber[[j]] ArrayOfHypercharges[[i]]ArrayOfHypercharges[[j]],{i,1,16},{j,1,16}];
 
 
 (* ::Subsubsection:: *)
 (*Fermion Masses Interactions*)
 
 
-(* ::Input:: *)
-(*ArrayOfCouplingsToTheZ={gVu,gVd,gVu,gVd,gVd,gVe,gVe,gVe,gAu,gAd,gAu,gAd,gAd,gAe,gAe,gAe};*)
-(*ArrayOfColorNumberBELOW={3,3,3,3,3,1,1,1,3,3,3,3,3,1,1,1};*)
-(*ArrayOfFermionMasses=4 GF/Sqrt[2] {0,0,0,0,0,0,0,0,Subscript[m, u]^2,Subscript[m, d]^2,Subscript[m, c]^2,Subscript[m, s]^2,Subscript[m, b]^2,Subscript[m, e]^2,Subscript[m, \[Mu]]^2,Subscript[m, \[Tau]]^2};*)
-(*GammaFermionMassesSYMB=1/(2Pi^2) Table[ArrayOfColorNumberBELOW[[j]]ArrayOfFermionMasses[[j]] ArrayOfCouplingsToTheZ[[i]]ArrayOfCouplingsToTheZ[[j]],{i,1,16},{j,1,16}];*)
+ArrayOfCouplingsToTheZ={gVu,gVd,gVu,gVd,gVd,gVe,gVe,gVe,gAu,gAd,gAu,gAd,gAd,gAe,gAe,gAe};
+ArrayOfColorNumberBELOW={3,3,3,3,3,1,1,1,3,3,3,3,3,1,1,1};
+ArrayOfFermionMasses=4 GF/Sqrt[2] {0,0,0,0,0,0,0,0,Subscript[m, u]^2,Subscript[m, d]^2,Subscript[m, c]^2,Subscript[m, s]^2,Subscript[m, b]^2,Subscript[m, e]^2,Subscript[m, \[Mu]]^2,Subscript[m, \[Tau]]^2};
+GammaFermionMassesSYMB=1/(2Pi^2) Table[ArrayOfColorNumberBELOW[[j]]ArrayOfFermionMasses[[j]] ArrayOfCouplingsToTheZ[[i]]ArrayOfCouplingsToTheZ[[j]],{i,1,16},{j,1,16}];
 
 
 (* ::Subsubsection:: *)
 (*Electromagnetic Interactions*)
 
 
-(* ::Input:: *)
-(*ArrayOfElectricCharges={Subscript[Q, u],Subscript[Q, d],Subscript[Q, u],Subscript[Q, d],Subscript[Q, d],Subscript[Q, e],Subscript[Q, e],Subscript[Q, e],Subscript[Q, u],Subscript[Q, d],Subscript[Q, u],Subscript[Q, d],Subscript[Q, d],Subscript[Q, e],Subscript[Q, e],Subscript[Q, e]};*)
-(*ArrayOfColorNumberBELOW={3,3,3,3,3,1,1,1,3,3,3,3,3,1,1,1};*)
-(*ArrayOfVectorCouplings={1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0};*)
-(*GammaElectromagneticSYMB=8/3 el^2/(16Pi^2) Table[ArrayOfVectorCouplings[[i]]ArrayOfVectorCouplings[[j]]ArrayOfColorNumberBELOW[[j]] ArrayOfElectricCharges[[i]]ArrayOfElectricCharges[[j]],{i,1,16},{j,1,16}];*)
+ArrayOfElectricCharges={Subscript[Q, u],Subscript[Q, d],Subscript[Q, u],Subscript[Q, d],Subscript[Q, d],Subscript[Q, e],Subscript[Q, e],Subscript[Q, e],Subscript[Q, u],Subscript[Q, d],Subscript[Q, u],Subscript[Q, d],Subscript[Q, d],Subscript[Q, e],Subscript[Q, e],Subscript[Q, e]};
+ArrayOfColorNumberBELOW={3,3,3,3,3,1,1,1,3,3,3,3,3,1,1,1};
+ArrayOfVectorCouplings={1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0};
+GammaElectromagneticSYMB=8/3 el^2/(16Pi^2) Table[ArrayOfVectorCouplings[[i]]ArrayOfVectorCouplings[[j]]ArrayOfColorNumberBELOW[[j]] ArrayOfElectricCharges[[i]]ArrayOfElectricCharges[[j]],{i,1,16},{j,1,16}];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ANOMALOUS DIMENSIONS - numerical*)
 
 
@@ -100,54 +99,50 @@
 (*Input parameter*)
 
 
-(* ::Input:: *)
-(*HiggsVEV=246.21971;*)
-(*g1ATmtop=Sqrt[5/3]0.35830;*)
-(*g2ATmtop=0.64779;*)
+HiggsVEV=246.21971;
+g1ATmtop=Sqrt[5/3]0.35830;
+g2ATmtop=0.64779;
 
 
 (* ::Subsubsection:: *)
 (*Anomalous Dimensions Matrices*)
 
 
-(* ::Input:: *)
-(*GammaYukawaSYMB2=GammaYukawaSYMB/.Subscript[\[Lambda], u]->0/.Subscript[\[Lambda], d]->0/.Subscript[\[Lambda], e]->0/.Subscript[\[Lambda], c]->0/.Subscript[\[Lambda], s]->0/.Subscript[\[Lambda], \[Mu]]->0/.Subscript[\[Lambda], \[Tau]]->lambdatau/.Subscript[\[Lambda], b]->lambdabottom/.Subscript[\[Lambda], t]->lambdatop;*)
-(*GammaHyperchargeSYMB2=GammaHyperchargeSYMB/.Subscript[y, q]->1/6/.Subscript[y, u]->2/3/.Subscript[y, d]->-(1/3)/.Subscript[y, l]->-(1/2)/.Subscript[y, e]->-1/.Subscript[y, H]->1/2;*)
-(*GammaSM=GammaYukawaSYMB2+GammaHyperchargeSYMB2;*)
-(*GammaSMfinal=GammaSM/.gprime->0.357003/.lambdatop->0.973644/.lambdabottom->0.0164834/.lambdatau->0.00994705;*)
-(*GammaFermionMassesSYMB2=GammaFermionMassesSYMB/.Subscript[m, u]->0/.Subscript[m, d]->0/.Subscript[m, e]->0/.Subscript[m, c]->0/.Subscript[m, s]->0/.Subscript[m, \[Mu]]->0/.gVu->1/2-4/3 swsquared/.gAu->-(1/2)/.gVd->-(1/2)+2/3 swsquared/.gAd->1/2/.gVe->-(1/2)+2swsquared/.gAe->1/2/.Subscript[m, \[Tau]]->1.777/.GF->1/(Sqrt[2]HiggsVEV^2)/.swsquared->sin2thetamZ;*)
-(*GammaElectromagneticSYMB2=GammaElectromagneticSYMB/.Subscript[Q, u]->2/3/.Subscript[Q, d]->-(1/3)/.Subscript[Q, e]->-1;*)
-(*GammaEMSM=GammaFermionMassesSYMB2+GammaElectromagneticSYMB2;*)
-(*GammaEMSMfinal=GammaEMSM/.el->0.313521/.Subscript[m, b]->2.86/.Subscript[m, \[Tau]]->1.777;*)
+GammaYukawaSYMB2=GammaYukawaSYMB/.Subscript[\[Lambda], u]->0/.Subscript[\[Lambda], d]->0/.Subscript[\[Lambda], e]->0/.Subscript[\[Lambda], c]->0/.Subscript[\[Lambda], s]->0/.Subscript[\[Lambda], \[Mu]]->0/.Subscript[\[Lambda], \[Tau]]->lambdatau/.Subscript[\[Lambda], b]->lambdabottom/.Subscript[\[Lambda], t]->lambdatop;
+GammaHyperchargeSYMB2=GammaHyperchargeSYMB/.Subscript[y, q]->1/6/.Subscript[y, u]->2/3/.Subscript[y, d]->-(1/3)/.Subscript[y, l]->-(1/2)/.Subscript[y, e]->-1/.Subscript[y, H]->1/2;
+GammaSM=GammaYukawaSYMB2+GammaHyperchargeSYMB2;
+GammaSMfinal=GammaSM/.gprime->0.357003/.lambdatop->0.973644/.lambdabottom->0.0164834/.lambdatau->0.00994705;
+GammaFermionMassesSYMB2=GammaFermionMassesSYMB/.Subscript[m, u]->0/.Subscript[m, d]->0/.Subscript[m, e]->0/.Subscript[m, c]->0/.Subscript[m, s]->0/.Subscript[m, \[Mu]]->0/.gVu->1/2-4/3 swsquared/.gAu->-(1/2)/.gVd->-(1/2)+2/3 swsquared/.gAd->1/2/.gVe->-(1/2)+2swsquared/.gAe->1/2/.Subscript[m, \[Tau]]->1.777/.GF->1/(Sqrt[2]HiggsVEV^2)/.swsquared->sin2thetamZ;
+GammaElectromagneticSYMB2=GammaElectromagneticSYMB/.Subscript[Q, u]->2/3/.Subscript[Q, d]->-(1/3)/.Subscript[Q, e]->-1;
+GammaEMSM=GammaFermionMassesSYMB2+GammaElectromagneticSYMB2;
+GammaEMSMfinal=GammaEMSM/.el->0.313521/.Subscript[m, b]->2.86/.Subscript[m, \[Tau]]->1.777;
 
 
 (* ::Section:: *)
 (*Evolution Matrix*)
 
 
-(* ::Input:: *)
-(*tnuclear=Log[1/91.1875];*)
-(*UEMSM=MatrixExp[GammaEMSMfinal tnuclear];*)
-(*EvolutionSM[t_]:=MatrixExp[-GammaSMfinal t];*)
-(*Ufull[t_]:=UEMSM.Umatch.EvolutionSM[t];*)
+tnuclear=Log[1/91.1875];
+UEMSM=MatrixExp[GammaEMSMfinal tnuclear];
+EvolutionSM[t_]:=MatrixExp[-GammaSMfinal t];
+Ufull[t_]:=UEMSM.Umatch.EvolutionSM[t];
 
 
 (* ::Section:: *)
 (*Function for the benchmarks*)
 
 
-(* ::Input:: *)
-(*ArrayNuclearVectorAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,\[CapitalLambda]];*)
-(*ArrayNuclearAxialAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[-1,1,1,-1,1,-1,1,1,-1,1,-1,1,1,-1,1,0,\[CapitalLambda]];*)
-(*ArrayNuclearVectorQuarksAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[1,1,1,0,0,1,1,1,0,0,1,1,1,0,0,0,\[CapitalLambda]];*)
-(*ArrayNuclearAxialQuarksAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[-1,1,1,0,0,-1,1,1,0,0,-1,1,1,0,0,0,\[CapitalLambda]];*)
-(*ArrayNuclearVectorLeptonsAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,\[CapitalLambda]];*)
-(*ArrayNuclearAxialLeptonsAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[0,0,0,-1,1,0,0,0,-1,1,0,0,0,-1,1,0,\[CapitalLambda]];*)
-(*ArrayNuclearVectorThirdAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,\[CapitalLambda]];*)
-(*ArrayNuclearAxialThirdAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[0,0,0,0,0,0,0,0,0,0,-1,1,1,-1,1,0,\[CapitalLambda]];*)
+ArrayNuclearVectorAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,\[CapitalLambda]];
+ArrayNuclearAxialAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[-1,1,1,-1,1,-1,1,1,-1,1,-1,1,1,-1,1,0,\[CapitalLambda]];
+ArrayNuclearVectorQuarksAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[1,1,1,0,0,1,1,1,0,0,1,1,1,0,0,0,\[CapitalLambda]];
+ArrayNuclearAxialQuarksAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[-1,1,1,0,0,-1,1,1,0,0,-1,1,1,0,0,0,\[CapitalLambda]];
+ArrayNuclearVectorLeptonsAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,\[CapitalLambda]];
+ArrayNuclearAxialLeptonsAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[0,0,0,-1,1,0,0,0,-1,1,0,0,0,-1,1,0,\[CapitalLambda]];
+ArrayNuclearVectorThirdAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,\[CapitalLambda]];
+ArrayNuclearAxialThirdAnalytical[\[CapitalLambda]_]:=ArrayNuclearAnalytical[0,0,0,0,0,0,0,0,0,0,-1,1,1,-1,1,0,\[CapitalLambda]];
 
 
-(* ::Title::Closed:: *)
+(* ::Title:: *)
 (*Other stuff...*)
 
 
@@ -564,7 +559,6 @@
 
 (* ::Input:: *)
 (**)
-(**)
 
 
 (* ::Text:: *)
@@ -575,14 +569,13 @@
 (*Initialise vectors of couplings*)
 
 
-(* ::Input:: *)
-(*InitCouplings[]:=*)
-(*( *)
-(*Return[ConstantArray[0,16]];*)
-(*)*)
-(*InitCouplings::Usage = *)
-(*"Returns an empty vector with 16 entries (suitable for storing EFT couplings).";*)
-(**)
+initCouplings[]:=
+( 
+Return[ConstantArray[0,16]];
+)
+InitCouplings::Usage = 
+"Returns a vector with 16 entries, all zero (suitable for storing EFT couplings).";
+
 
 
 (* ::Text:: *)
@@ -651,52 +644,36 @@
 (*Generate coupling vectors with preset operator structures*)
 
 
-(* ::Input:: *)
-(*PresetCoupling[OpStructure_]:=*)
-(*( *)
-(*Cout= InitCouplings[];*)
-(*Switch[OpStructure,*)
-(*"lightQ-V", *)
-(*Cout[[OpInd[{"uL", "uR", "dR"}]]] = 1;,*)
-(*"lightQ-A",*)
-(*Cout[[OpInd["uL"]]] = -1;*)
-(*Cout[[OpInd[{"dR", "uR"}]]] = 1;,*)
-(*"heavyQ-V", *)
-(*Cout[[OpInd[{"tL", "tR", "bR"}]]] = 1;,*)
-(*"heavyQ-A",*)
-(*Cout[[OpInd["tL"]]] = -1;*)
-(*Cout[[OpInd[{"tR", "bR"}]]] = 1;,*)
-(*"intQ-V",*)
-(*Cout[[OpInd[{"cL", "cR", "sR"}]]] = 1;,*)
-(*"intQ-A",*)
-(*Cout[[OpInd["cL"]]] = -1;*)
-(*Cout[[OpInd[{"cR", "sR"}]]] = 1;,*)
-(*"universalQ-V", *)
-(*Cout[[OpInd[{"uL", "uR", "dR"}]]] = 1;*)
-(*Cout[[OpInd[{"tL", "tR", "bR"}]]] = 1;*)
-(*Cout[[OpInd[{"cL", "cR", "sR"}]]] = 1;,*)
-(*"universalQ-A",*)
-(*Cout[[OpInd[{"uL", "cL", "tL"}]]] = -1;*)
-(*Cout[[OpInd[{"uR", "cR", "tR"}]]] = 1;*)
-(*Cout[[OpInd[{"dR", "sR", "bR"}]]] = 1;,*)
-(*"Higgs",*)
-(*Cout[[OpInd["H"]]] = 1;,*)
-(*"heavyL-V", *)
-(*Cout[[OpInd[{"\[Tau]L","\[Tau]R"}]]] = 1;,*)
-(* "heavyL-A",*)
-(*Cout[[OpInd["\[Tau]L"]]] = -1;*)
-(*Cout[[OpInd["\[Tau]R"]]] = 1;,*)
-(*"universalL-V",*)
-(*Cout[[OpInd[{"\[Tau]L","\[Tau]R"}]]] = 1;*)
-(*Cout[[OpInd[{"\[Mu]L","\[Mu]R"}]]] = 1;*)
-(*Cout[[OpInd[{"eL","eR"}]]] = 1;,*)
-(*"universalL-A",*)
-(*Cout[[OpInd[{"\[Tau]L","\[Mu]L", "eL"}]]] = -1;*)
-(*Cout[[OpInd[{"\[Tau]R","\[Mu]R", "eR"}]]] = 1;*)
-(*];*)
-(*Return[Cout]*)
-(*)*)
-(**)
+setBenchmark[benchmark_]:=
+(
+Switch[benchmark,
+"Higgs",
+Return[{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0}],
+"UniversalVector", 
+Return[{1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0}],
+"UniversalAxial",
+Return[{-1.0,1.0,1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,0.0}],
+"QuarksVector",
+Return[{1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.0,0.0}],
+"QuarksAxial",
+Return[{-1.0,1.0,1.0,0.0,0.0,-1.0,1.0,1.0,0.0,0.0,-1.0,1.0,1.0,0.0,0.0,0.0}],
+"LeptonsVector",
+Return[{0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,1.0,0.0}],
+"LeptonsAxial",
+Return[{0.0,0.0,0.0,-1.0,1.0,0.0,0.0,0.0,-1.0,1.0,0.0,0.0,0.0,-1.0,1.0,0.0}],
+"ThirdVector",
+Return[{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,1.0,0.0}],
+"ThirdAxial",
+Return[{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-1.0,1.0,1.0,-1.0,1.0,0.0}]];
+
+(*If no match was made, return zeros...*)
+Print["Error in runDM.setBenchmark: Benchmark <<" <> benchmark <>">> not found..."];
+Print["Options are: 'Higgs', 'UniversalVector', 'UniversalAxial', 'QuarksVector', 'QuarksAxial', 'LeptonsVector', 'LeptonsAxial', 'ThirdVector', 'ThirdAxial'..."];
+Print["Returning empty coupling vector..."];
+couplings = ConstantArray[0,16];
+Return[couplings];
+)
+
 
 
 (* ::Text:: *)
@@ -731,3 +708,36 @@
 (*)]*)
 (*)*)
 (**)
+
+
+evolutionMat[E1_, E2_]:=
+( 
+mZ = 91.1875;
+
+(*At the minute we're assuming that E1 > E2*)
+Emat = Which[ 
+(E1 > mZ && E2 > mZ), MatrixExp[-GammaSMfinal*Log[E1/E2]],
+(E1 > mZ && E2  < mZ),MatrixExp[-GammaEMSMfinal*Log[mZ/E2]].Umatch.MatrixExp[-GammaSMfinal*Log[E1/mZ]],
+(E1 < mZ && E2 < mZ), MatrixExp[-GammaEMSMfinal*Log[E1/E2]].Umatch];
+
+Return[Emat];
+)
+evolutionMat::Usage = 
+"Run the coupling vector Ci from scale E1 to E2 (with E1 > E2). E1 and E2 may be either above or below the EWSB scale.";
+
+
+evolveCouplings[c_, E1_, E2_]:=
+(
+	Return[evolutionMat[E1, E2].c];
+)
+evolveCouplings::Usage = 
+"   "
+
+
+lightqCouplings[c_, E1_, E2_]:=
+(
+	cf = evolveCouplings[c, E1, E2];
+	Return[cf[[{1,2,4,9,10,12}]]];
+)
+lightqCouplings::Usage = 
+"   "
