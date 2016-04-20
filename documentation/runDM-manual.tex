@@ -38,17 +38,32 @@ If you make use of \runDM in your work, please cite it as...along with the assoc
 
 This section describes the general framework of \runDM, describing the general usage, inputs and outputs of \runDM, as well as pseudocode for how to use the most important functions. For implementation-specific information, please see Sec.~\ref{sec:implementations}.
 
-Functions in \runDM accept as input a vector of couplings $\mathbf{C}$. This vector has 16 elements: the coefficients of the dimension-6 DM-SM operators:
+Functions in \runDM accept as input a vector of couplings $\mathbf{c}$. This vector has 16 elements, the coefficients of the dimension-6 DM-SM operators of the form:
 
 \begin{equation}
-\mathbf{C} = \left(\!\begin{array}{ccc:cc|ccc:cc|ccc:cc||c}
+\mathcal{O}_{\mathrm{DM},\mu} \, \mathcal{O}_\mathrm{SM}^\mu
+\end{equation}
+
+\begin{equation}
+\mathbf{c} = \left(\!\begin{array}{ccc:cc|ccc:cc|ccc:cc||c}
 c_{ q}^{(1)} & c_{u}^{(1)} & c_{ d}^{(1)}\,&\, c_{ l}^{(1)} & c_{ e}^{(1)} \,&\, 
 c_{ q}^{(2)} & c_{ u}^{(2)} & c_{ d}^{(2)} \,&\, c_{ l}^{(2)} & c_{ e}^{(2)} \,&\,
 c_{ q}^{(3)} & c_{ u}^{(3)} & c_{ d}^{(3)} \,&\, c_{ l}^{(3)} & c_{ e}^{(3)} \,&\,
 c_{ \!H} \end{array}\!\right),
 \label{ed:cdef}
 \end{equation}
+where
 
+\begin{align}
+\begin{split}
+\mathcal{O}_{q^{(i)}}^\mu &= \overline{q}^{(i)}_L \gamma^\mu q^{(i)}_L \,,\\
+\mathcal{O}_{u^{(i)}}^\mu &= \overline{u}^{(i)}_R \gamma^\mu u^{(i)}_R\, \\
+\mathcal{O}_{d^{(i)}}^\mu &= \overline{d}^{(i)}_R \gamma^\mu d^{(i)}_R\, \\
+\mathcal{O}_{l^{(i)}}^\mu &= \overline{l}^{(i)}_L \gamma^\mu l^{(i)}_L \,,\\
+\mathcal{O}_{e^{(i)}}^\mu &= \overline{e}^{(i)}_R \gamma^\mu e^{(i)}_R \,,\\
+\mathcal{O}_H^\mu &= i H^\dagger \overleftrightarrow{D}_\mu H\,.
+\end{split}
+\end{align}
 
 \section{Implementations}
 \label{sec:implementations}

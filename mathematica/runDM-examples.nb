@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     44077,        976]
-NotebookOptionsPosition[     42839,        929]
-NotebookOutlinePosition[     43236,        947]
-CellTagsIndexPosition[     43193,        944]
+NotebookDataLength[     44493,        988]
+NotebookOptionsPosition[     43216,        940]
+NotebookOutlinePosition[     43613,        958]
+CellTagsIndexPosition[     43570,        955]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -925,7 +925,18 @@ p+D/yrvnjw==
    3.6701541881591578`*^9}, {3.670154817367243*^9, 3.670154821489294*^9}, 
    3.670154911918952*^9, 3.6701549423184958`*^9}]
 }, Open  ]]
-}, Open  ]]
+}, Open  ]],
+
+Cell["\<\
+1) Direct detection - coupling and mediator mass - automatically run to 1 GeV
+
+2) Coupling, mediator mass, and another scale - full vector
+
+...3...) Input in terms of V and AV below mZ\
+\>", "Text",
+ CellChangeTimes->{{3.6701587684146338`*^9, 3.670158802311509*^9}, {
+  3.670158926137706*^9, 3.670158967319071*^9}, {3.670160088919772*^9, 
+  3.670160093682887*^9}}]
 },
 CellGrouping->Manual,
 WindowSize->{720, 780},
@@ -977,7 +988,8 @@ Cell[CellGroupData[{
 Cell[15344, 398, 2737, 60, 199, "Input"],
 Cell[18084, 460, 24727, 465, 583, "Output"]
 }, Open  ]]
-}, Open  ]]
+}, Open  ]],
+Cell[42838, 929, 374, 9, 106, "Text"]
 }
 ]
 *)
