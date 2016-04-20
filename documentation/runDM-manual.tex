@@ -7,26 +7,51 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{booktabs}
-
-
+\usepackage{hyperref}
+\usepackage{xspace}
+\usepackage{arydshln,leftidx,mathtools}
 
 %---------Commands-------------
 
 \setcounter{section}{0}
+\newcommand{\runDM}{\texttt{runDM}\xspace}
 
 %--------Document--------------
 
 \begin{document}
 
-\title{runDM - Manual}
+\title{runDM v1.0 - Manual}
 \maketitle
 
 
 \section{Overview}
 
+The \runDM code is a tool for calculating the low energy couplings of Dark Matter (DM) to the Standard Model (SM) in Simplified Models with vector mediators. By specifying the mass of the mediator and the couplings of the mediator to SM fields at high energy, the code outputs the couplings at a different energy scale, fully taking into account the mixing of all dimension-6 operators.
+
+At present, the code is written in two languages: \textit{Mathematica} and \textit{Python}. If you are interested in an implementation in another language, please get in touch and we'll do what we can to add it. Please contact Bradley Kavanagh (\href{mailto:bradkav@gmail.com?subject=runDM v.10}{bradkav@gmail.com}) for any questions, problems, bugs and suggestions.
+
+If you make use of \runDM in your work, please cite it as...along with the associated papers...and...
+
+
+
 \section{General framework}
 
+This section describes the general framework of \runDM, describing the general usage, inputs and outputs of \runDM, as well as pseudocode for how to use the most important functions. For implementation-specific information, please see Sec.~\ref{sec:implementations}.
+
+Functions in \runDM accept as input a vector of couplings $\mathbf{C}$. This vector has 16 elements: the coefficients of the dimension-6 DM-SM operators:
+
+\begin{equation}
+\mathbf{C} = \left(\!\begin{array}{ccc:cc|ccc:cc|ccc:cc||c}
+c_{ q}^{(1)} & c_{u}^{(1)} & c_{ d}^{(1)}\,&\, c_{ l}^{(1)} & c_{ e}^{(1)} \,&\, 
+c_{ q}^{(2)} & c_{ u}^{(2)} & c_{ d}^{(2)} \,&\, c_{ l}^{(2)} & c_{ e}^{(2)} \,&\,
+c_{ q}^{(3)} & c_{ u}^{(3)} & c_{ d}^{(3)} \,&\, c_{ l}^{(3)} & c_{ e}^{(3)} \,&\,
+c_{ \!H} \end{array}\!\right),
+\label{ed:cdef}
+\end{equation}
+
+
 \section{Implementations}
+\label{sec:implementations}
 
 \subsection{Mathematica}
 
