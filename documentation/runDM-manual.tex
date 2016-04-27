@@ -10,11 +10,49 @@
 \usepackage{hyperref}
 \usepackage{xspace}
 \usepackage{arydshln,leftidx,mathtools}
+\usepackage{verbatim}
+\usepackage{listings}
+
+
+
+%---------Code listings----------
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    xleftmargin=.25in,
+    xrightmargin=.25in
+}
+ 
+\lstset{style=mystyle}
+
+
 
 %---------Commands-------------
 
 \setcounter{section}{0}
 \newcommand{\runDM}{\texttt{runDM}\xspace}
+
+\newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
 
 %--------Document--------------
 
@@ -28,10 +66,22 @@
 
 The \runDM code is a tool for calculating the low energy couplings of Dark Matter (DM) to the Standard Model (SM) in Simplified Models with vector mediators. By specifying the mass of the mediator and the couplings of the mediator to SM fields at high energy, the code outputs the couplings at a different energy scale, fully taking into account the mixing of all dimension-6 operators.
 
-At present, the code is written in two languages: \textit{Mathematica} and \textit{Python}. If you are interested in an implementation in another language, please get in touch and we'll do what we can to add it. Please contact Bradley Kavanagh (\href{mailto:bradkav@gmail.com?subject=runDM v.10}{bradkav@gmail.com}) for any questions, problems, bugs and suggestions.
+At present, the code is written in two languages: \textit{Mathematica} and \textit{Python}. For installation instructions and example code in each language, skip straight to Sec.~\ref{sec:implementations}. If you are interested in an implementation in another language, please get in touch and we'll do what we can to add it. Please contact Bradley Kavanagh (\href{mailto:bradkav@gmail.com?subject=runDM v.10}{bradkav@gmail.com}) for any questions, problems, bugs and suggestions.
 
-If you make use of \runDM in your work, please cite it as...along with the associated papers...and...
+If you make use of \runDM in your work, please cite it as:
 
+\begin{quote}
+F. D'Eramo, B. J. Kavanagh \& P. Panci (2016). \textit{runDM} (Version X.X) [Computer software]. Available at https://github.com/bradkav/runDM/\,,
+\end{quote}
+making sure to include the correct version number. Please also cite the associated papers:
+
+\begin{quote}
+F. D'Eramo \& M. Procura, \textit{Connecting Dark Matter UV Complete Models to Direct Detection Rates via Effective Field Theory}, JHEP {\bf 1504} (2015) 054 [arXiv:1411.3342 [hep-ph]]\,,
+\end{quote}
+
+\begin{quote}
+F. D'Eramo \& B. J. Kavanagh, \textit{You can hide but you have to run: direct detection with vector mediators}, (2016) [arXiv:1605.XXXXX]\,.
+\end{quote}
 
 
 \section{General framework}
@@ -45,33 +95,141 @@ Functions in \runDM accept as input a vector of couplings $\mathbf{c}$. This vec
 \end{equation}
 
 \begin{equation}
-\mathbf{c} = \left(\!\begin{array}{ccc:cc|ccc:cc|ccc:cc||c}
+\scalemath{0.9}{\mathbf{c} = \left(\!\begin{array}{ccc:cc|ccc:cc|ccc:cc||c}
 c_{ q}^{(1)} & c_{u}^{(1)} & c_{ d}^{(1)}\,&\, c_{ l}^{(1)} & c_{ e}^{(1)} \,&\, 
 c_{ q}^{(2)} & c_{ u}^{(2)} & c_{ d}^{(2)} \,&\, c_{ l}^{(2)} & c_{ e}^{(2)} \,&\,
 c_{ q}^{(3)} & c_{ u}^{(3)} & c_{ d}^{(3)} \,&\, c_{ l}^{(3)} & c_{ e}^{(3)} \,&\,
-c_{ \!H} \end{array}\!\right),
-\label{ed:cdef}
+c_{ \!H} \end{array}\!\right)}\,,
+\label{eq:cdef}
 \end{equation}
 where
 
+\begin{alignat}{2}
+\mathcal{O}_{q^{(i)}}^\mu &= \overline{q}^{(i)}_L \gamma^\mu q^{(i)}_L \,, \qquad \mathcal{O}_{l^{(i)}}^\mu   &= \overline{l}^{(i)}_L \gamma^\mu l^{(i)}_L\,, \nonumber \\
+\mathcal{O}_{u^{(i)}}^\mu &= \overline{u}^{(i)}_R \gamma^\mu u^{(i)}_R\,, \qquad \mathcal{O}_{e^{(i)}}^\mu &= \overline{e}^{(i)}_R \gamma^\mu e^{(i)}_R \,, \\
+\mathcal{O}_{d^{(i)}}^\mu &= \overline{d}^{(i)}_R \gamma^\mu d^{(i)}_R\,, \qquad\mathcal{O}_H^\mu &= i H^\dagger \overleftrightarrow{D}_\mu H\,. \nonumber
+\end{alignat}
+
 \begin{align}
-\begin{split}
-\mathcal{O}_{q^{(i)}}^\mu &= \overline{q}^{(i)}_L \gamma^\mu q^{(i)}_L \,,\\
-\mathcal{O}_{u^{(i)}}^\mu &= \overline{u}^{(i)}_R \gamma^\mu u^{(i)}_R\, \\
-\mathcal{O}_{d^{(i)}}^\mu &= \overline{d}^{(i)}_R \gamma^\mu d^{(i)}_R\, \\
-\mathcal{O}_{l^{(i)}}^\mu &= \overline{l}^{(i)}_L \gamma^\mu l^{(i)}_L \,,\\
-\mathcal{O}_{e^{(i)}}^\mu &= \overline{e}^{(i)}_R \gamma^\mu e^{(i)}_R \,,\\
-\mathcal{O}_H^\mu &= i H^\dagger \overleftrightarrow{D}_\mu H\,.
-\end{split}
+\scalemath{0.9}{\mathcal{C} = \left(\!\begin{array}{ccccc|ccc||ccccc|ccc}
+c_{ Vu}^{(1)} & c_{ Vd}^{(1)} & c_{ Vu}^{(2)} & c_{ Vd}^{(2)} & c_{ Vd}^{(3)} & 
+c_{ Ve}^{(1)} &c_{ Ve}^{(2)}  & c_{ Ve}^{(3)}  & c_{ Au}^{(1)} & c_{ Ad}^{(1)} & c_{ Au}^{(2)} & c_{ Ad}^{(2)} & c_{ Ad}^{(3)} & 
+c_{ Ae}^{(1)} &c_{ Ae}^{(2)}  & c_{ Ae}^{(3)} \end{array}\!\right) }\,.
+\label{eq:cdef2}
 \end{align}
+
+\begin{alignat}{2}
+\mathcal{O}_{Vu^{(i)}}^\mu &= \overline{u}^{(i)} \gamma^\mu u^{(i)}\,, \qquad \mathcal{O}_{Au^{(i)}}^\mu &= \overline{u}^{(i)} \gamma^\mu \gamma^5 u^{(i)}\,, \nonumber \\
+\mathcal{O}_{Vd^{(i)}}^\mu &= \overline{d}^{(i)} \gamma^\mu d^{(i)}\,, \qquad \mathcal{O}_{Ad^{(i)}}^\mu &=  \overline{d}^{(i)} \gamma^\mu \gamma^5 d^{(i)}\,,\\
+\mathcal{O}_{Ve^{(i)}}^\mu &= \overline{e}^{(i)} \gamma^\mu e^{(i)}\,, \qquad \mathcal{O}_{Ae^{(i)}}^\mu &=  \overline{e}^{(i)} \gamma^\mu \gamma^5 e^{(i)}\,. \nonumber
+\end{alignat}
+
+\subsection{Initialisation}
+
+The input coupling vector $\mathbf{c}$ must be in the form of an array with 16 elements. To help with initialisation, \runDM includes the function \texttt{initCouplings()}, which returns such an array, filled with zeroes. The user is then free to specify each of the 16 couplings in Eq.~\ref{eq:cdef}.
+
+Alternatively, \texttt{setBenchmark(benchmarkID)} returns a coupling vector $\mathbf{c}$ corresponding to one of a number of preset benchmarks, specified using the string \texttt{benchmarkID}. The available benchmarks are:
+
+\begin{itemize}
+
+\item \texttt{"Higgs"} - coupling only to the Higgs current operator: 
+
+\qquad $c_H = 1$, all other couplings zero.
+
+\item \texttt{"UniversalVector"} - universal vector coupling to all fermions: 
+
+\qquad $c_q^{(i)} = c_u^{(i)} = c_d^{(i)} = c_l^{(i)} = c_e^{(i)} = 1$, $c_H = 0$.
+
+\item \texttt{"UniversalAxial"} - universal axial-vector coupling to all fermions: 
+
+\qquad $-c_q^{(i)} = c_u^{(i)} = c_d^{(i)} = -c_l^{(i)} = c_e^{(i)} = 1$, $c_H = 0$.
+
+\item \texttt{"QuarksVector"} - vector coupling to all quarks: 
+
+\qquad $c_q^{(i)} = c_u^{(i)} = c_d^{(i)} = 1$, $c_l^{(i)} = c_e^{(i)} = c_H = 0$.
+
+\item \texttt{"QuarksAxial"} - axial-vector coupling to all quarks: 
+
+\qquad $-c_q^{(i)} = c_u^{(i)} = c_d^{(i)} = 1$, $c_l^{(i)} = c_e^{(i)} = c_H = 0$.
+
+\item \texttt{"LeptonsVector"} - vector coupling to all leptons: 
+
+\qquad $c_l^{(i)} = c_e^{(i)} = 1$, $c_q^{(i)} = c_u^{(i)} = c_d^{(i)} = c_H = 0$.
+
+\item \texttt{"LeptonsAxial"} - axial-vector coupling to all leptons: 
+
+\qquad $-c_l^{(i)} = c_e^{(i)} = 1$, $c_q^{(i)} = c_u^{(i)} = c_d^{(i)} = c_H = 0$.
+
+\item \texttt{"ThirdVector"} - vector coupling to third generation fermions: 
+
+\qquad $c_q^{(3)} = c_u^{(3)} = c_d^{(3)} = c_l^{(3)} = c_e^{(3)} = 1$, all remaining couplings zero.
+
+\item \texttt{"ThirdAxial"} - axial-vector coupling to third generation fermions: 
+
+\qquad $-c_q^{(3)} = c_u^{(3)} = c_d^{(3)} = -c_l^{(3)} = c_e^{(3)} = 1$, all remaining couplings zero.
+
+\end{itemize}
+
+If the value of \texttt{benchmarkID} is not recognised, \texttt{setBenchmark} simply returns a coupling vector filled with zeroes.
+
+\subsection{runCouplings}
+
+The function \texttt{runCouplings}($\mathbf{c}$, $E_1$, $E_2$) accepts as input a vector of couplings $\mathbf{c}$, defined at energy $E_1$ (in GeV) and returns a vector of couplings evaluated at energy $E_2$ (in GeV), taking into account the running, matching and mixing between the two energies. If $E_2 > m_Z$, \texttt{runCouplings} returns the elements of $\mathbf{c}$, the vector of couplings above the EWSB scale defined in Eq.~\ref{eq:cdef}. Alternatively, if $E_2 < m_Z$, \texttt{runCouplings} returns the elements of $\mathbf{\mathcal{C}}$, the vector of couplings in the EFT below the EWSB scale, defined in Eq.~\ref{eq:cdef2}.
+
+\subsection{DDCouplings}
+
+The function \texttt{DDCouplings}($\mathbf{c}$, $E_1$) accepts as input a vector of couplings $\mathbf{c}$, defined at energy $E_1$ (in GeV). The running is performed down to the nuclear energy scale of 1 GeV and the function returns a vector of the low-energy couplings to light quarks ($u$, $d$, $s$): 
+
+\begin{equation}
+\mathcal{C}_q = \left( c_V^{(u)}, c_V^{(d)}, c_V^{(s)}, c_A^{(u)}, c_A^{(d)}, c_A^{(s)} \right)\,.
+\end{equation}
+
 
 \section{Implementations}
 \label{sec:implementations}
 
 \subsection{Mathematica}
 
+In order to use the \textit{mathematica} implementation of \texttt{runDM}, simply copy the \textit{mathematica} package file \texttt{runDM.m} into the same directory as your notebook and then use \texttt{Get}:
+
+\begin{lstlisting}[language=mathematica]
+Get[NotebookDirectory[] <> "runDM.m"];
+\end{lstlisting}
+
+Below is an example code snippet for calculating (and plotting) the low energy couplings to light quarks (relevant in direct detection experiments) at the nuclear energy scale, assuming a mediator of mass $m_V$ which couples through the axial-vector current to all SM quarks:
+
+\begin{lstlisting}[language=mathematica]
+Get[NotebookDirectory[] <> "runDM.m"];
+
+chigh = setBenchmark["QuarksAxial"];
+
+clabels = {"cVu", "cVd", "cVs", "cAu", "cAd", "cAs"};
+
+Table[Plot[{DDCouplings[chigh, 10^lmv][[k]]}, {lmv, 0.0, 6.0}, 
+  PlotTheme -> "Scientific", 
+  FrameLabel -> {"Log10[mv/GeV]", clabels[[k]]}, 
+  PlotRangePadding -> .1, ImageSize -> 200, 
+  BaseStyle -> {FontSize -> 16}], {k, 6}]
+\end{lstlisting}
+
+
 \subsection{Python}
 
+\begin{lstlisting}[language=Python]
+import runDM
+
+#Z mass
+mZ = 91.1875
+
+#Nuclear energy scale
+E_N = 1
+
+c = sr.InitCouplings()
+c[0] = 1.0
+#c[-1] = 1.0
+
+mV = np.logspace(0, 5, 100)
+\end{lstlisting}
 
 \end{document}
 
