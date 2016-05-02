@@ -76,6 +76,8 @@ F. D'Eramo, B. J. Kavanagh \& P. Panci (2016). \textit{runDM} (Version X.X) [Com
 making sure to include the correct version number. Please also cite the associated papers:
 
 \begin{quote}
+Crivellin PRL
+
 F. D'Eramo \& M. Procura, \textit{Connecting Dark Matter UV Complete Models to Direct Detection Rates via Effective Field Theory}, JHEP {\bf 1504} (2015) 054 [arXiv:1411.3342 [hep-ph]]\,,
 \end{quote}
 
@@ -178,10 +180,10 @@ The function \texttt{runCouplings}($\mathbf{c}$, $E_1$, $E_2$) accepts as input 
 
 \subsection{DDCouplings}
 
-The function \texttt{DDCouplings}($\mathbf{c}$, $E_1$) accepts as input a vector of couplings $\mathbf{c}$, defined at energy $E_1$ (in GeV). The running is performed down to the nuclear energy scale of 1 GeV and the function returns a vector of the low-energy couplings to light quarks ($u$, $d$, $s$): 
+The function \texttt{DDCouplings}($\mathbf{c}$, $E_1$) accepts as input a vector of couplings $\mathbf{c}$, defined at energy $E_1$ (in GeV). The running is performed down to the nuclear energy scale of 1 GeV and the function returns a vector of the low-energy couplings to light quarks ($u$, $d$, $s$) relevant for direct detection:
 
 \begin{equation}
-\mathcal{C}_q = \left( c_V^{(u)}, c_V^{(d)}, c_V^{(s)}, c_A^{(u)}, c_A^{(d)}, c_A^{(s)} \right)\,.
+\mathcal{C}_q = \left( c_V^{(u)}, c_V^{(d)}, c_A^{(u)}, c_A^{(d)}, c_A^{(s)} \right)\,.
 \end{equation}
 
 

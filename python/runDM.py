@@ -11,15 +11,42 @@ problems, bugs and suggestions.
 
 import numpy as np
 from scipy import linalg
+from scipy.interpolate import interp1d
 
 
 #Define the Z-mass
 mZ = 91.1875 #GeV
 
+EvolutionSM = np.zeros([16,16,1401])
+EvolutionEMSM = np.zeros([16,16,453])
+
+t_SM = np.linspace(0, 14, 1401)
+t_EMSM = np.append(np.linspace(-4.51, 0.0,452)-0.003, 0)
+
+
 #Load in the evolution tables
-gammaEMSM = np.loadtxt('data/gammaEMSM.dat')
-U_match = np.loadtxt('data/Umatch.dat')
-gammaSM = np.loadtxt('data/gammaSM.dat')
+for i in range(1401):
+    s = str(t_SM[i])
+    if (t_SM[i] == int(t_SM[i])):
+        s = str(int(t_SM[i]))
+    EvolutionSM[:,:,i] = np.loadtxt('data/EvolutionSM_t=' + s + '.dat')
+
+for i in range(453):
+    s = str(t_EMSM[i])
+    if (t_EMSM[i] == int(t_EMSM[i])):
+        s = str(int(t_EMSM[i]))
+    EvolutionEMSM[:,:,i] = np.loadtxt('data/EvolutionEMSM_t=' + s + '.dat')
+
+Umatch = np.loadtxt('data/Umatch.dat')
+
+#Correct the value of t_EMSM slightly
+# (because Log(1/mZ)~-4.51292)
+t_EMSM[:-1] = t_EMSM[:-1]+0.00008
+
+
+#Define interpolating functions
+UevolutionABOVE = interp1d(t_SM, EvolutionSM)
+UevolutionBELOW = interp1d(t_EMSM, EvolutionEMSM) 
 
 
 #%%
@@ -63,7 +90,7 @@ def setBenchmark(benchmark):
 
 #Calculate evolution matrix from energy E1 to E2
 #%%
-def evolutionMat(E1, E2):
+def evolutionMat0(E1, E2):
     """
     EvolveMat...
     """
@@ -95,6 +122,35 @@ def evolutionMat(E1, E2):
     
     return Emat
     
+#Calculate evolution matrix from energy E1 to E2
+#%%
+def evolutionMat(E1, E2):
+    """
+    EvolveMat...
+    """
+    
+    t1 = np.clip(np.log(E1/mZ), np.log(1.0/mZ), 14.0)
+    t2 = np.clip(np.log(E2/mZ), np.log(1.0/mZ), 14.0)
+    
+    #Do bounds checking...
+    
+    #Check for E2 < 1
+    #Precalculate the SMEM evolution matrix
+
+    #Both energies below the Z-scale
+    if ((E1 < mZ)and(E2 < mZ)):
+        Emat = np.dot(np.dot(linalg.inv(UevolutionBELOW(t2)), UevolutionBELOW(t1)),Umatch)
+    
+    #Both energies above the Z-scale
+    if ((E1 > mZ)and(E2 > mZ)):
+        Emat = np.dot(linalg.inv(UevolutionABOVE(t2)), UevolutionABOVE(t1))
+    
+    #Energies across the Z-scale
+    if ((E1 > mZ)and(E2 < mZ)):
+        EmatBELOW = np.dot(linalg.inv(UevolutionBELOW(t2)), UevolutionBELOW(0))
+        Emat = np.dot(EmatBELOW, np.dot(Umatch, UevolutionABOVE(t1))) 
+    
+    return Emat    
     
 #%%
 def evolveCouplings(c, E1, E2):
@@ -108,13 +164,13 @@ def evolveCouplings(c, E1, E2):
 
 
 #%%
-def lightqCouplings(c, E1, E2):
+def DDCouplings(c, E1):
     """
     lightqCouplings...
     """
     #Might just want to fix E2...
     
-    cf = evolveCouplings(c, E1, E2)
-    return cf[[0,1,3,8,9,11]]
+    cf = evolveCouplings(c, E1, 1.0)
+    return cf[[0,1,8,9,11]]
     
     
