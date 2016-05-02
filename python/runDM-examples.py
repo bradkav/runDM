@@ -1,54 +1,82 @@
+"""
+runDM-examples.py
+
+Example script for the python implementation of runDM. See also the 
+runDM-examples.ipynb ipython notebook for more detailed explanation.
+
+Please contact Bradley Kavanagh (bradkav@gmail.com) for any questions,
+problems, bugs and suggestions.
+"""
+
 import numpy as np
+import matplotlib
+from matplotlib import pyplot as pl
+
+#Import the runDM module
 import runDM
 
-import matplotlib as mpl
-import pylab as pl
+#First, let's specify the high-energy couplings. This will be an 1-D array with 16 elements. runDM comes with a number of pre-defined benchmarks, which can be accessed using setBenchmark.
 
-font = { 'size'   : 16, 'family': 'serif'}
-mpl.rcParams['xtick.major.size'] = 10
-mpl.rcParams['xtick.major.width'] = 1
-mpl.rcParams['xtick.minor.size'] = 4
-mpl.rcParams['xtick.minor.width'] = 1
-mpl.rcParams['ytick.major.size'] = 10
-mpl.rcParams['ytick.major.width'] = 1
-mpl.rcParams['ytick.minor.size'] = 4
-mpl.rcParams['ytick.minor.width'] = 1
-mpl.rc('font', **font)
+c_high = runDM.setBenchmark("UniversalVector")
+print "Vector coupling to all SM fermions:", c_high, "\n"
 
-#Z mass
-mZ = 91.1875
-
-#Nuclear energy scale
-E_N = 1
-
-c = sr.InitCouplings()
-c[0] = 1.0
-#c[-1] = 1.0
-
-mV = np.logspace(0, 5, 100)
-
-print "Check all this, because it doesn't make sense - check matrix ordering!"
-
-pl.figure()
-
-pl.plot(mV, np.dot(sr.EvolveMat(mV, E_N+ mV*0.0), c)[:,0], 'r-', linewidth=1.5, label=r'$c_u^{(V)}$')
-pl.plot(mV, np.dot(sr.EvolveMat(mV, E_N+ mV*0.0), c)[:,1], 'b-',linewidth=1.5, label=r'$c_d^{(V)}$')
-#pl.loglog(mV, np.dot(sr.EvolveMat(mV, E_N+ mV*0.0), c)[:,3], 'g-',linewidth=1.5, label=r'$c_s^{(V)}$')
-
-pl.plot(mV, np.dot(sr.EvolveMat(mV, E_N+ mV*0.0), c)[:,8], 'r--',linewidth=1.5, label=r'$c_u^{(A)}$')
-pl.plot(mV, np.dot(sr.EvolveMat(mV, E_N+ mV*0.0), c)[:,9], 'b--',linewidth=1.5, label=r'$c_d^{(A)}$')
-pl.plot(mV, np.dot(sr.EvolveMat(mV, E_N+ mV*0.0), c)[:,11], 'g--', linewidth=1.5, label=r'$c_s^{(A)}$')
-
-pl.legend(loc='lower left')
-
-pl.axvline(mZ, linestyle='--', color='r')
+c_high = runDM.setBenchmark("QuarksAxial")
+print "Axial-vector coupling to all quarks:", c_high, "\n"
 
 
-pl.xscale('log')
+#Alternatively, you can specify each coupling individually. You can use InitCouplings() to generate an empty array of couplings and then go ahead. But any array of 16 elements with do.
 
-pl.xlabel(r'$m_V$ [GeV]')
-pl.ylabel(r'$c$')
+c_high = runDM.initCouplings()
+c_high[0] = 1.0
+c_high[1] = -1.0
+c_high[12] = 1.0
+print "User-defined couplings:", c_high, "\n"
 
-pl.ylim(-2, 2)
+#From these high energy couplings (defined at some energy E_1), you can obtain the couplings at a different energy scale E_2 by using runCouplings(c, E_1, E_2). See the manual for more details on runCouplings.
 
+E1 = 1000
+E2 = 1
+c_low = runDM.runCouplings(c_high, E1, E2)
+print "Low energy couplings:", c_low, "\n"
+
+#If we're only interested in direct detection experiments, we can use the function DDCouplings(c, E_1). In this case, the code evolves the couplings from energy $E_1$, down to the nuclear energy scale ~ 1 GeV. The output is an array with 5 elements, the vector and axial-vector couplings to the light quarks.
+
+c_q = runDM.DDCouplings(c_high, E1)
+
+couplings_str = ['c_V^u','c_V^d','c_A^u','c_A^d','c_A^s']
+
+for k in range(5):
+    print couplings_str[k], "=", c_q[k]
+print " "
+
+#Finally, let's take a look at the value of the low-energy light quark couplings (evaluated at mu_N ~ 1 GeV) as a function of the mediator mass m_V. 
+
+mV = np.logspace(0, 6, 1000)
+c_q = np.zeros([1000,5])
+
+#Set the value of the high energy couplings
+c_high = runDM.setBenchmark("QuarksAxial")
+
+#Calculate the low energy couplings
+for i in range(1000):
+    c_q[i,:] = runDM.DDCouplings(c_high, mV[i])
+
+#Now let's do some plotting
+f, axarr = pl.subplots(3,2 ,figsize=(8,8))
+
+for k in range(5):
+    if (k < 2): #Vector currents
+        ax = axarr[k%3, 0]
+    else:       #Axial-vector currents
+        ax = axarr[(k+1)%3, 1]
+        
+    ax.semilogx(mV, c_q[:,k])
+    ax.set_xlabel(r'$m_V$ [GeV]', fontsize=18.0)
+    ax.set_ylabel(r'$'+couplings_str[k]+'$', fontsize=20.0)
+    ax.axvline(91.1875, color='k', linestyle='--')
+    ax.set_xlim(1.0, 10**6)
+    ax.get_yticklabels()[-1].set_visible(False)
+    
+axarr[2,0].set_axis_off()
+pl.tight_layout()
 pl.show()

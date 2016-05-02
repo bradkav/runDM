@@ -153,9 +153,9 @@ def evolutionMat(E1, E2):
     return Emat    
     
 #%%
-def evolveCouplings(c, E1, E2):
+def runCouplings(c, E1, E2):
     """
-    evolveCouplings...
+    runCouplings...
     """
     
     #Need to check for size of c
@@ -166,11 +166,11 @@ def evolveCouplings(c, E1, E2):
 #%%
 def DDCouplings(c, E1):
     """
-    lightqCouplings...
+    DDCouplings...
     """
     #Might just want to fix E2...
     
-    cf = evolveCouplings(c, E1, 1.0)
+    cf = runCouplings(c, E1, 1.0)
     return cf[[0,1,8,9,11]]
     
     

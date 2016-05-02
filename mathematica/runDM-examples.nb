@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     44057,        967]
-NotebookOptionsPosition[     42811,        920]
-NotebookOutlinePosition[     43208,        938]
-CellTagsIndexPosition[     43165,        935]
+NotebookDataLength[     44145,        966]
+NotebookOptionsPosition[     42899,        919]
+NotebookOutlinePosition[     43296,        937]
+CellTagsIndexPosition[     43253,        934]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -206,7 +206,7 @@ Cell[TextData[{
    RowBox[{
     SubscriptBox["E", "2"], "by", " ", "using", " ", 
     RowBox[{
-     RowBox[{"evolveCouplings", "[", 
+     RowBox[{"runCouplings", "[", 
       RowBox[{"c", ",", " ", 
        SubscriptBox["E", "1"], ",", " ", 
        SubscriptBox["E", "2"]}], "]"}], "."}]}], TraditionalForm]]],
@@ -249,8 +249,9 @@ the manual) - if ",
      SubscriptBox["E", "2"], "."}]}], TraditionalForm]]]
 }], "Text",
  CellChangeTimes->{{3.670042729002287*^9, 3.6700428067153177`*^9}, {
-  3.670042909985353*^9, 3.670042973869691*^9}, {3.670043005495775*^9, 
-  3.670043303726968*^9}}],
+   3.670042909985353*^9, 3.670042973869691*^9}, {3.670043005495775*^9, 
+   3.670043303726968*^9}, {3.67119022588736*^9, 3.67119022733749*^9}, 
+   3.671192117041773*^9}],
 
 Cell[CellGroupData[{
 
@@ -261,13 +262,13 @@ Cell[BoxData[{
   RowBox[{
    SubscriptBox["E", "2"], " ", "=", " ", "1"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{"clow", " ", "=", " ", 
-  RowBox[{"evolveCouplings", "[", 
+  RowBox[{"runCouplings", "[", 
    RowBox[{"chigh", ",", " ", 
     SubscriptBox["E", "1"], ",", " ", 
     SubscriptBox["E", "2"]}], "]"}]}]}], "Input",
  CellChangeTimes->{{3.6700435261813498`*^9, 3.67004357030402*^9}, {
   3.670043713332363*^9, 3.6700437149150257`*^9}, {3.671183555820355*^9, 
-  3.6711835677460938`*^9}},
+  3.6711835677460938`*^9}, {3.671190218797594*^9, 3.6711902199034023`*^9}},
  Background->GrayLevel[0.85]],
 
 Cell[BoxData[
@@ -310,9 +311,8 @@ we can use the function DDCouplings[c, ",
  ". In this case, the code evolves the couplings from energy ",
  Cell[BoxData[
   FormBox[
-   SubscriptBox["E", "1"], TraditionalForm]],
-  FormatType->"TraditionalForm"],
- ", down to the nuclear energy scale ~ 1 GeV. The output is an array with 6 \
+   SubscriptBox["E", "1"], TraditionalForm]]],
+ ", down to the nuclear energy scale ~ 1 GeV. The output is an array with 5 \
 elements, the vector and axial-vector couplings to light quarks: ",
  Cell[BoxData[
   FormBox[
@@ -326,9 +326,6 @@ elements, the vector and axial-vector couplings to light quarks: ",
       SuperscriptBox[
        SubscriptBox["c", "V"], 
        RowBox[{"(", "d", ")"}]], ",", 
-      SuperscriptBox[
-       SubscriptBox["c", "V"], 
-       RowBox[{"(", "s", ")"}]], ",", 
       SuperscriptBox[
        SubscriptBox["c", "A"], 
        RowBox[{"(", "u", ")"}]], ",", 
@@ -344,7 +341,9 @@ elements, the vector and axial-vector couplings to light quarks: ",
   3.6700437228010197`*^9, 3.670043734665916*^9}, {3.670046302078257*^9, 
   3.670046383369644*^9}, {3.670046439021654*^9, 3.6700465052766113`*^9}, {
   3.670046784263509*^9, 3.6700467910614634`*^9}, {3.670750737839508*^9, 
-  3.6707507855700207`*^9}, {3.670750871371649*^9, 3.670750871493491*^9}}],
+  3.6707507855700207`*^9}, {3.670750871371649*^9, 3.670750871493491*^9}, {
+  3.6711872061710453`*^9, 3.671187226874303*^9}, {3.671187731598543*^9, 
+  3.671187736071044*^9}}],
 
 Cell[CellGroupData[{
 
@@ -953,20 +952,20 @@ Cell[CellGroupData[{
 Cell[6769, 152, 947, 23, 96, "Input"],
 Cell[7719, 177, 829, 12, 38, "Print"]
 }, Open  ]],
-Cell[8563, 192, 1982, 60, 175, "Text"],
+Cell[8563, 192, 2051, 61, 175, "Text"],
 Cell[CellGroupData[{
-Cell[10570, 256, 571, 14, 62, "Input"],
-Cell[11144, 272, 1467, 26, 93, "Output"]
+Cell[10639, 257, 616, 14, 62, "Input"],
+Cell[11258, 273, 1467, 26, 93, "Output"]
 }, Open  ]],
-Cell[12626, 301, 1699, 45, 96, "Text"],
+Cell[12740, 302, 1673, 43, 96, "Text"],
 Cell[CellGroupData[{
-Cell[14350, 350, 1396, 31, 102, "Input"],
-Cell[15749, 383, 1558, 27, 123, "Output"]
+Cell[14438, 349, 1396, 31, 102, "Input"],
+Cell[15837, 382, 1558, 27, 123, "Output"]
 }, Open  ]],
-Cell[17322, 413, 495, 16, 51, "Text"],
+Cell[17410, 412, 495, 16, 51, "Text"],
 Cell[CellGroupData[{
-Cell[17842, 433, 3937, 88, 199, "Input"],
-Cell[21782, 523, 21001, 393, 583, "Output"]
+Cell[17930, 432, 3937, 88, 199, "Input"],
+Cell[21870, 522, 21001, 393, 583, "Output"]
 }, Open  ]]
 }, Open  ]]
 }

@@ -13,7 +13,7 @@
 \usepackage{verbatim}
 \usepackage{listings}
 
-
+\usepackage{eucal} 
 
 %---------Code listings----------
 
@@ -61,12 +61,13 @@
 \title{runDM v1.0 - Manual}
 \maketitle
 
+\tableofcontents
 
 \section{Overview}
 
 The \runDM code is a tool for calculating the low energy couplings of Dark Matter (DM) to the Standard Model (SM) in Simplified Models with vector mediators. By specifying the mass of the mediator and the couplings of the mediator to SM fields at high energy, the code outputs the couplings at a different energy scale, fully taking into account the mixing of all dimension-6 operators.
 
-At present, the code is written in two languages: \textit{Mathematica} and \textit{Python}. For installation instructions and example code in each language, skip straight to Sec.~\ref{sec:implementations}. If you are interested in an implementation in another language, please get in touch and we'll do what we can to add it. Please contact Bradley Kavanagh (\href{mailto:bradkav@gmail.com?subject=runDM v.10}{bradkav@gmail.com}) for any questions, problems, bugs and suggestions.
+At present, the code is written in two languages: \textit{Mathematica} and \textit{Python}. For installation instructions and example code in each language, skip straight to Sec.~\ref{sec:implementations}. Example files/notebooks for all versions of the code are available (along with the code itself) are available at: \href{https://github.com/bradkav/runDM/releases}{https://github.com/bradkav/runDM/releases}. If you are interested in an implementation in another language, please get in touch and we'll do what we can to add it. Please contact Bradley Kavanagh (\href{mailto:bradkav@gmail.com?subject=runDM v.10}{bradkav@gmail.com}) for any questions, problems, bugs and suggestions.
 
 If you make use of \runDM in your work, please cite it as:
 
@@ -76,13 +77,14 @@ F. D'Eramo, B. J. Kavanagh \& P. Panci (2016). \textit{runDM} (Version X.X) [Com
 making sure to include the correct version number. Please also cite the associated papers:
 
 \begin{quote}
-Crivellin PRL
+
+ A. Crivellin, F. D'Eramo \& M. Procura, \textit{New Constraints on Dark Matter Effective Theories from Standard Model Loops}, Phys.\ Rev.\ Lett.\  {\bf 112} (2014) 191304 [arXiv:1402.1173 [hep-ph]].
 
 F. D'Eramo \& M. Procura, \textit{Connecting Dark Matter UV Complete Models to Direct Detection Rates via Effective Field Theory}, JHEP {\bf 1504} (2015) 054 [arXiv:1411.3342 [hep-ph]]\,,
 \end{quote}
 
 \begin{quote}
-F. D'Eramo \& B. J. Kavanagh, \textit{You can hide but you have to run: direct detection with vector mediators}, (2016) [arXiv:1605.XXXXX]\,.
+F. D'Eramo, B. J. Kavanagh \& P. Panci, \textit{You can hide but you have to run: direct detection with vector mediators}, (2016) [arXiv:1605.XXXXX]\,.
 \end{quote}
 
 
@@ -90,43 +92,56 @@ F. D'Eramo \& B. J. Kavanagh, \textit{You can hide but you have to run: direct d
 
 This section describes the general framework of \runDM, describing the general usage, inputs and outputs of \runDM, as well as pseudocode for how to use the most important functions. For implementation-specific information, please see Sec.~\ref{sec:implementations}.
 
-Functions in \runDM accept as input a vector of couplings $\mathbf{c}$. This vector has 16 elements, the coefficients of the dimension-6 DM-SM operators of the form:
+The core of \runDM is the function \texttt{runCouplings}($\mathbf{c}$, $E_1$, $E_2$). This function accepts as input a vector of couplings $\mathbf{c}$, specified at some energy $E_1$. It returns a different vector of couplings, evaluated at the \textit{lower} energy $E_2$, taking into account RG evolution between the two energy scales. Full details about the numerical implementation can be found in Appendix~B of arXiv:1605.XXXXX. Here, we simply outline which coupling values are required as input and output.
+
+The input vector  $\mathbf{c}$ has 16 elements, the coefficients of the dimension-6 DM-SM operators of the form: $\mathcal{O}_{\mathrm{DM},\mu} \, \mathcal{O}_\mathrm{SM}^\mu$. The structure of the DM operator does not affect the running of the coefficients and may take the following forms for fermionic DM $\chi$:
 
 \begin{equation}
-\mathcal{O}_{\mathrm{DM},\mu} \, \mathcal{O}_\mathrm{SM}^\mu
+\mathcal{O}_{\mathrm{DM},\mu} = \overline{\chi}\gamma_\mu \chi\,, \,\overline{\chi} \gamma_\mu \gamma^5 \chi\,,
 \end{equation}
-
+and for complex scalar DM $\phi$:
 \begin{equation}
-\scalemath{0.9}{\mathbf{c} = \left(\!\begin{array}{ccc:cc|ccc:cc|ccc:cc||c}
-c_{ q}^{(1)} & c_{u}^{(1)} & c_{ d}^{(1)}\,&\, c_{ l}^{(1)} & c_{ e}^{(1)} \,&\, 
-c_{ q}^{(2)} & c_{ u}^{(2)} & c_{ d}^{(2)} \,&\, c_{ l}^{(2)} & c_{ e}^{(2)} \,&\,
-c_{ q}^{(3)} & c_{ u}^{(3)} & c_{ d}^{(3)} \,&\, c_{ l}^{(3)} & c_{ e}^{(3)} \,&\,
-c_{ \!H} \end{array}\!\right)}\,,
-\label{eq:cdef}
-\end{equation}
-where
+\mathcal{O}_{\mathrm{DM},\mu} = \phi^\dagger \overleftrightarrow{\partial}_\mu \phi\, , \, \partial_\mu (\phi^\dagger \phi)\,.\end{equation}
 
+The SM operators which appear at dimension-6, defined above the electroweak symmetry breaking (EWSB) scale, are:
 \begin{alignat}{2}
 \mathcal{O}_{q^{(i)}}^\mu &= \overline{q}^{(i)}_L \gamma^\mu q^{(i)}_L \,, \qquad \mathcal{O}_{l^{(i)}}^\mu   &= \overline{l}^{(i)}_L \gamma^\mu l^{(i)}_L\,, \nonumber \\
 \mathcal{O}_{u^{(i)}}^\mu &= \overline{u}^{(i)}_R \gamma^\mu u^{(i)}_R\,, \qquad \mathcal{O}_{e^{(i)}}^\mu &= \overline{e}^{(i)}_R \gamma^\mu e^{(i)}_R \,, \\
-\mathcal{O}_{d^{(i)}}^\mu &= \overline{d}^{(i)}_R \gamma^\mu d^{(i)}_R\,, \qquad\mathcal{O}_H^\mu &= i H^\dagger \overleftrightarrow{D}_\mu H\,. \nonumber
+\mathcal{O}_{d^{(i)}}^\mu &= \overline{d}^{(i)}_R \gamma^\mu d^{(i)}_R\,, \qquad\mathcal{O}_H^\mu &= i H^\dagger \overleftrightarrow{D}_\mu H\,, \nonumber
 \end{alignat}
+where the $(i)$ superscript labels the generation number. The vector of couplings $\mathcal{c}$ which \runDM accepts as input is then defined as 
+\begin{equation}
+\scalemath{0.9}{\mathbf{c} = \left(\!\begin{array}{cccccccccccccccc}
+c_{ q}^{(1)} & c_{u}^{(1)} & c_{ d}^{(1)}\,&\, c_{ l}^{(1)} & c_{ e}^{(1)} \,&\, 
+c_{ q}^{(2)} & c_{ u}^{(2)} & c_{ d}^{(2)} \,&\, c_{ l}^{(2)} & c_{ e}^{(2)} \,&\,
+c_{ q}^{(3)} & c_{ u}^{(3)} & c_{ d}^{(3)} \,&\, c_{ l}^{(3)} & c_{ e}^{(3)} \,&\,
+c_{ \!H} \end{array}\!\right)}\,.
+\label{eq:cdef}
+\end{equation}
+A number of functions are available to initialise these coupling vectors - see Sec.~\ref{sec:init}.
 
-\begin{align}
-\scalemath{0.9}{\mathcal{C} = \left(\!\begin{array}{ccccc|ccc||ccccc|ccc}
-c_{ Vu}^{(1)} & c_{ Vd}^{(1)} & c_{ Vu}^{(2)} & c_{ Vd}^{(2)} & c_{ Vd}^{(3)} & 
-c_{ Ve}^{(1)} &c_{ Ve}^{(2)}  & c_{ Ve}^{(3)}  & c_{ Au}^{(1)} & c_{ Ad}^{(1)} & c_{ Au}^{(2)} & c_{ Ad}^{(2)} & c_{ Ad}^{(3)} & 
-c_{ Ae}^{(1)} &c_{ Ae}^{(2)}  & c_{ Ae}^{(3)} \end{array}\!\right) }\,.
-\label{eq:cdef2}
-\end{align}
+If the energy $E_2$ at which to evaluate the couplings is above the EWSB scale (i.e.~$E_2 > m_Z$), the output of \texttt{runCouplings} will be a vector of couplings as in Eq.~\ref{eq:cdef}, evaluated after RG evolution. However, if $E_2$ is below the EWSB scale (i.e.~$E_2 <m_Z$), then \texttt{runCouplings} will return the vector $\mathcal{C}$, which are the couplings to the SM operators after EWSB. These operators are
 
 \begin{alignat}{2}
 \mathcal{O}_{Vu^{(i)}}^\mu &= \overline{u}^{(i)} \gamma^\mu u^{(i)}\,, \qquad \mathcal{O}_{Au^{(i)}}^\mu &= \overline{u}^{(i)} \gamma^\mu \gamma^5 u^{(i)}\,, \nonumber \\
 \mathcal{O}_{Vd^{(i)}}^\mu &= \overline{d}^{(i)} \gamma^\mu d^{(i)}\,, \qquad \mathcal{O}_{Ad^{(i)}}^\mu &=  \overline{d}^{(i)} \gamma^\mu \gamma^5 d^{(i)}\,,\\
-\mathcal{O}_{Ve^{(i)}}^\mu &= \overline{e}^{(i)} \gamma^\mu e^{(i)}\,, \qquad \mathcal{O}_{Ae^{(i)}}^\mu &=  \overline{e}^{(i)} \gamma^\mu \gamma^5 e^{(i)}\,. \nonumber
+\mathcal{O}_{Ve^{(i)}}^\mu &= \overline{e}^{(i)} \gamma^\mu e^{(i)}\,, \qquad \mathcal{O}_{Ae^{(i)}}^\mu &=  \overline{e}^{(i)} \gamma^\mu \gamma^5 e^{(i)}\,, \nonumber
 \end{alignat}
+and the corresponding coupling vector is
+\begin{align}
+\scalemath{0.9}{\mathcal{C} = \left(\!\begin{array}{cccccccccccccccc}
+\mathcal{C}_{ Vu}^{(1)} & \mathcal{C}_{ Vd}^{(1)} & \mathcal{C}_{ Vu}^{(2)} & \mathcal{C}_{ Vd}^{(2)} & \mathcal{C}_{ Vd}^{(3)} & 
+\mathcal{C}_{ Ve}^{(1)} &\mathcal{C}_{ Ve}^{(2)}  & \mathcal{C}_{ Ve}^{(3)}  & \mathcal{C}_{ Au}^{(1)} & \mathcal{C}_{ Ad}^{(1)} & \mathcal{C}_{ Au}^{(2)} & \mathcal{C}_{ Ad}^{(2)} & \mathcal{C}_{ Ad}^{(3)} & 
+\mathcal{C}_{ Ae}^{(1)} &\mathcal{C}_{ Ae}^{(2)}  & \mathcal{C}_{ Ae}^{(3)} \end{array}\!\right) }\,.
+\label{eq:cdef2}
+\end{align}
+
+The \runDM code takes care of the matching between between $\mathbf{c}$ and $\mathcal{C}$ at the EWSB-scale. It also takes care of relative values of $E_1$ and $E_2$ compared to each other and to $m_Z$. The only possibility which is not allowed is to have $E_1 < m_Z$ and $E_2 > m_Z$. This is because the matching from the broken to the unbroken phase of the SM is not unique.
+
+In the following subsections, we give more details on the key functions available in \runDM, including \texttt{DDCoupling} (Sec.~\ref{sec:DDCouplings}) which allows the user to directly calculate the couplings relevant at the direct detection scale.
 
 \subsection{Initialisation}
+\label{sec:init}
 
 The input coupling vector $\mathbf{c}$ must be in the form of an array with 16 elements. To help with initialisation, \runDM includes the function \texttt{initCouplings()}, which returns such an array, filled with zeroes. The user is then free to specify each of the 16 couplings in Eq.~\ref{eq:cdef}.
 
@@ -176,14 +191,17 @@ If the value of \texttt{benchmarkID} is not recognised, \texttt{setBenchmark} si
 
 \subsection{runCouplings}
 
-The function \texttt{runCouplings}($\mathbf{c}$, $E_1$, $E_2$) accepts as input a vector of couplings $\mathbf{c}$, defined at energy $E_1$ (in GeV) and returns a vector of couplings evaluated at energy $E_2$ (in GeV), taking into account the running, matching and mixing between the two energies. If $E_2 > m_Z$, \texttt{runCouplings} returns the elements of $\mathbf{c}$, the vector of couplings above the EWSB scale defined in Eq.~\ref{eq:cdef}. Alternatively, if $E_2 < m_Z$, \texttt{runCouplings} returns the elements of $\mathbf{\mathcal{C}}$, the vector of couplings in the EFT below the EWSB scale, defined in Eq.~\ref{eq:cdef2}.
+The function \texttt{runCouplings}($\mathbf{c}$, $E_1$, $E_2$) accepts as input a vector of couplings $\mathbf{c}$, defined at energy $E_1$ (in GeV) and returns a vector of couplings evaluated at energy $E_2$ (in GeV), taking into account the running, matching and mixing between the two energies. The input vector $\mathbf{c}$ has the form of Eq.~\ref{eq:cdef}.
+
+ If $E_2 > m_Z$, \texttt{runCouplings} returns the elements of $\mathbf{c}$, the vector of couplings above the EWSB scale defined in Eq.~\ref{eq:cdef}. Alternatively, if $E_2 < m_Z$, \texttt{runCouplings} returns the elements of $\mathbf{\mathcal{C}}$, the vector of couplings in the EFT below the EWSB scale, defined in Eq.~\ref{eq:cdef2}.
 
 \subsection{DDCouplings}
+\label{sec:DDCouplings}
 
-The function \texttt{DDCouplings}($\mathbf{c}$, $E_1$) accepts as input a vector of couplings $\mathbf{c}$, defined at energy $E_1$ (in GeV). The running is performed down to the nuclear energy scale of 1 GeV and the function returns a vector of the low-energy couplings to light quarks ($u$, $d$, $s$) relevant for direct detection:
+The function \texttt{DDCouplings}($\mathbf{c}$, $E_1$) accepts as input a vector of couplings $\mathbf{c}$, defined at energy $E_1$ (in GeV). The input vector $\mathbf{c}$ has the form of Eq.~\ref{eq:cdef}. The running is performed down to the nuclear energy scale of 1 GeV and the function returns a vector of the low-energy couplings to light quarks ($u$, $d$, $s$) relevant for direct detection:
 
 \begin{equation}
-\mathcal{C}_q = \left( c_V^{(u)}, c_V^{(d)}, c_A^{(u)}, c_A^{(d)}, c_A^{(s)} \right)\,.
+\mathcal{C}_q = \left( \mathcal{C}_V^{(u)}, \mathcal{C}_V^{(d)}, \mathcal{C}_A^{(u)}, \mathcal{C}_A^{(d)}, \mathcal{C}_A^{(s)} \right)\,.
 \end{equation}
 
 
@@ -203,35 +221,59 @@ Below is an example code snippet for calculating (and plotting) the low energy c
 \begin{lstlisting}[language=mathematica]
 Get[NotebookDirectory[] <> "runDM.m"];
 
+#Set benchmark
 chigh = setBenchmark["QuarksAxial"];
 
-clabels = {"cVu", "cVd", "cVs", "cAu", "cAd", "cAs"};
+clabels = {"cVu", "cVd", "cAu", "cAd", "cAs"};
 
+#Calculate and plot
 Table[Plot[{DDCouplings[chigh, 10^lmv][[k]]}, {lmv, 0.0, 6.0}, 
   PlotTheme -> "Scientific", 
   FrameLabel -> {"Log10[mv/GeV]", clabels[[k]]}, 
   PlotRangePadding -> .1, ImageSize -> 200, 
-  BaseStyle -> {FontSize -> 16}], {k, 6}]
+  BaseStyle -> {FontSize -> 16}], {k, 5}]
 \end{lstlisting}
-
+For more detailed examples, see the notebook at \texttt{mathematica/runDM-examples.nb}.
 
 \subsection{Python}
 
+In order to use the \textit{python} implementation of \runDM, you will need to have the \href{http://www.numpy.org}{\texttt{numpy}} and \href{https://www.scipy.org/index.html}{\texttt{scipy}} packages installed.  Once that's done, copy the module file \texttt{runDM.py} into the same directory as your python script. Make sure that the folder \texttt{python/data/} is in the same folder as the module file. Then simply import the module:
+
 \begin{lstlisting}[language=Python]
 import runDM
-
-#Z mass
-mZ = 91.1875
-
-#Nuclear energy scale
-E_N = 1
-
-c = sr.InitCouplings()
-c[0] = 1.0
-#c[-1] = 1.0
-
-mV = np.logspace(0, 5, 100)
 \end{lstlisting}
 
+Below is an example code snippet for calculating (and plotting) the low energy couplings to light quarks (relevant in direct detection experiments) at the nuclear energy scale, assuming a mediator of mass $m_V$ which couples through the axial-vector current to all SM quarks:
+
+\begin{lstlisting}[language=Python]
+import numpy as np
+from matplotlib import pyplot as pl
+import runDM
+
+mV = np.logspace(0, 6, 1000)
+c_q = np.zeros([1000,5])
+
+#Set benchmark
+c_high = runDM.setBenchmark("QuarksAxial")
+
+clabels = ['c_V^u','c_V^d','c_A^u','c_A^d','c_A^s']
+
+#Calculate the low energy couplings
+for i in range(1000):
+    c_q[i,:] = runDM.DDCouplings(c_high, mV[i])
+
+#Now let's do some plotting
+f, axarr = pl.subplots(5,figsize=(5,9))
+
+for k in range(5):
+    ax = axarr[k]
+    ax.semilogx(mV, c_q[:,k])
+    ax.set_xlabel(r'$m_V$ [GeV]', fontsize=14.0)
+    ax.set_ylabel(r'$'+clabels[k]+'$', fontsize=14.0)
+    
+pl.tight_layout()
+pl.show()
+\end{lstlisting}
+For more detailed examples, see the script at \texttt{python/runDM-examples.py} or the ipython notebook at \texttt{python/runDM-examples.ipynb}.
 \end{document}
 
