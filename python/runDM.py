@@ -1,18 +1,21 @@
 # %load runDM.py
 """
-Calculate low energy DM-SM couplings from high energy couplings.
-"""
+runDM version 1.0 [Python implementation]
 
-"""
+Calculate low energy DM-SM couplings from high energy couplings,
+taking into account RG evolution due to SM loops.
+
 Please contact Bradley Kavanagh (bradkav@gmail.com) for any questions,
 problems, bugs and suggestions.
 """
 
-
 import numpy as np
 from scipy import linalg
 from scipy.interpolate import interp1d
+import sys
 
+#-------------Initialisation---------------
+#------------------------------------------
 
 #Define the Z-mass
 mZ = 91.1875 #GeV
@@ -20,6 +23,7 @@ mZ = 91.1875 #GeV
 EvolutionSM = np.zeros([16,16,1401])
 EvolutionEMSM = np.zeros([16,16,453])
 
+#Pre-calculated values of t = Log[m_V/m_Z]
 t_SM = np.linspace(0, 14, 1401)
 t_EMSM = np.append(np.linspace(-4.51, 0.0,452)-0.003, 0)
 
@@ -39,138 +43,227 @@ for i in range(453):
 
 Umatch = np.loadtxt('data/Umatch.dat')
 
+
 #Correct the value of t_EMSM slightly
 # (because Log(1/mZ)~-4.51292)
 t_EMSM[:-1] = t_EMSM[:-1]+0.00008
-
 
 #Define interpolating functions
 UevolutionABOVE = interp1d(t_SM, EvolutionSM)
 UevolutionBELOW = interp1d(t_EMSM, EvolutionEMSM) 
 
+#------------------------------------------
 
-#%%
+
+#%% Initialise empty coupling vector
 def initCouplings():
     """
-    InitCouplings...
+    Returns a numpy array with 16 elements, all set to zero,
+    for use in initialising coupling vectors.
     """
     return np.zeros(16)
 
 
-#%%
-def setBenchmark(benchmark):
+#%% Generate coupling vectors with preset operator structures
+def setBenchmark(benchmarkID):
     """
+    Returns a numpy array with 16 elements, corresponding to the
+    vector of couplings defined in Eq. 4 of the runDM manual. 
+    The value of the couplings is defined by the string benchmarkID.
     
+    Possible choices for benchmarkID are:
+        'Higgs', 'UniversalVector', 'UniversalAxial',
+        'QuarksVector', 'QuarksAxial', 'LeptonsVector',
+        'LeptonsAxial', 'ThirdVector', 'ThirdAxial'
     """
-    if (benchmark == "Higgs"):
+    if (benchmarkID == "Higgs"):
         return np.array([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0])
-    elif (benchmark == "UniversalVector"):
+    elif (benchmarkID == "UniversalVector"):
         return np.array([1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0])
-    elif (benchmark == "UniversalAxial"):
+    elif (benchmarkID == "UniversalAxial"):
         return np.array([-1.0,1.0,1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,0.0])
-    elif (benchmark == "QuarksVector"):
+    elif (benchmarkID == "QuarksVector"):
         return np.array([1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.0,0.0])
-    elif (benchmark == "QuarksAxial"):
+    elif (benchmarkID == "QuarksAxial"):
         return np.array([-1.0,1.0,1.0,0.0,0.0,-1.0,1.0,1.0,0.0,0.0,-1.0,1.0,1.0,0.0,0.0,0.0])
-    elif (benchmark == "LeptonsVector"):
+    elif (benchmarkID == "LeptonsVector"):
         return np.array([0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,1.0,0.0])
-    elif (benchmark == "LeptonsAxial"):
+    elif (benchmarkID == "LeptonsAxial"):
         return np.array([0.0,0.0,0.0,-1.0,1.0,0.0,0.0,0.0,-1.0,1.0,0.0,0.0,0.0,-1.0,1.0,0.0])
-    elif (benchmark == "ThirdVector"):
+    elif (benchmarkID == "ThirdVector"):
         return np.array([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,1.0,0.0])
-    elif (benchmark == "ThirdAxial"):
+    elif (benchmarkID == "ThirdAxial"):
         return np.array([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-1.0,1.0,1.0,-1.0,1.0,0.0])
     
     else:
-        print " Error in runDM.setBenchmark: Benchmark <<", benchmark, ">> not found..."
+        print " Error in runDM.setbenchmark: benchmarkID <<", benchmarkID, ">> not found..."
         print " Options are: 'Higgs', 'UniversalVector', 'UniversalAxial', 'QuarksVector', 'QuarksAxial', 'LeptonsVector', 'LeptonsAxial', 'ThirdVector', 'ThirdAxial'..."
         print " Returning empty coupling vector..."
         return np.zeros(16)
         
-
-#Calculate evolution matrix from energy E1 to E2
-#%%
-def evolutionMat0(E1, E2):
-    """
-    EvolveMat...
-    """
     
-    #Do bounds checking...
     
-    #Check for E2 < 1
-    #Precalculate the SMEM evolution matrix
-
-    #Both energies below the Z-scale
-    if ((E1 < mZ)and(E2 < mZ)):
-        tnuclear = np.log(E2*1.0/E1)
-        U_EMSM = linalg.expm(gammaEMSM*tnuclear)
-        Emat = np.dot(U_EMSM,U_match)
-    
-    #Both energies above the Z-scale
-    if ((E1 > mZ)and(E2 > mZ)):
-        t = np.log(E1/E2)
-        U_SM = linalg.expm(-gammaSM*t)
-        Emat = np.dot(U_match,U_SM)
-    
-    #Energies across the Z-scale
-    if ((E1 > mZ)and(E2 < mZ)):
-        t = np.log(E1/mZ)
-        tnuclear = np.log(E2/mZ)
-        U_EMSM = linalg.expm(gammaEMSM*tnuclear)
-        U_SM = linalg.expm(-gammaSM*t)
-        Emat = np.dot(U_EMSM, np.dot(U_match, U_SM))
-    
-    return Emat
-    
-#Calculate evolution matrix from energy E1 to E2
-#%%
+#%% Calculate matrix to evolve couplings
 def evolutionMat(E1, E2):
     """
-    EvolveMat...
+    Calculate 16x16 matrix for evolving coupling vector
+    between energies E1 and E2 (in GeV). evolutionMat
+    takes care of the relative values of E1 and E2.
+    
+    Requires E1, E2 in range [1, 1e8] GeV.
+    
+    Note that evolutionMat is NOT vectorized - it can only
+    accept floats for E1 and E2.
+    
+    Input:
+        E1 - energy to start from (in GeV)
+        E2 - energy to run to (in GeV)
+    
+    Output:
+        Returns a 16x16 numpy array containing the evolution matrix
     """
     
-    t1 = np.clip(np.log(E1/mZ), np.log(1.0/mZ), 14.0)
-    t2 = np.clip(np.log(E2/mZ), np.log(1.0/mZ), 14.0)
+    #Check to see if E1 or E2 is a list
+    if ((hasattr(E1, "__len__"))or(hasattr(E2,"__len__"))):
+        sys.exit(" Error in runDM.evolutionMat: E1 and E2 must both be floats")
+                
     
-    #Do bounds checking...
+    t1 = np.log(E1/mZ)
+    t2 = np.log(E2/mZ)
     
-    #Check for E2 < 1
-    #Precalculate the SMEM evolution matrix
+    #Check ranges of t1 and t2
+    if not(np.log(1.0/mZ) <= t1 <= 14.0):
+        sys.exit(" Error in runDM.evolutionMat: E1 out of range. Require 1 GeV <= E1 <= 1e8 GeV")
 
-    #Both energies below the Z-scale
-    if ((E1 < mZ)and(E2 < mZ)):
+    if not(np.log(1.0/mZ) <= t2 <= 14.0):
+        sys.exit(" Error in runDM.evolutionMat: E2 out of range. Require 1 GeV <= E2 <= 1e8 GeV")
+
+    #Both energies below the Z-mass
+    if ((t1 <= 0)and(t2 <= 0)):
         Emat = np.dot(np.dot(linalg.inv(UevolutionBELOW(t2)), UevolutionBELOW(t1)),Umatch)
     
-    #Both energies above the Z-scale
-    if ((E1 > mZ)and(E2 > mZ)):
+    #Both energies above the Z-mass
+    if ((t1 >= 0)and(t2 >= 0)):
         Emat = np.dot(linalg.inv(UevolutionABOVE(t2)), UevolutionABOVE(t1))
     
-    #Energies across the Z-scale
-    if ((E1 > mZ)and(E2 < mZ)):
+    #Energies either side of the Z-mass
+    if ((t1 >= 0)and(t2 <= 0)):
         EmatBELOW = np.dot(linalg.inv(UevolutionBELOW(t2)), UevolutionBELOW(0))
         Emat = np.dot(EmatBELOW, np.dot(Umatch, UevolutionABOVE(t1))) 
     
+    #Energies either side of Z-mass (in wrong order)
+    if ((t1 < 0)and(t2 > 0)):
+        sys.exit(" Error in runDM.evolutionMat: E1 < mZ, E2 > mZ not supported - matching is not unique.")
+    
     return Emat    
     
-#%%
+
+    
+#%% Evolve couplings between E1 and E2
 def runCouplings(c, E1, E2):
     """
-    runCouplings...
+    Calculate running of couplings c between two energies
+    E1 and E2. If E2 > mZ, the output is an array of 
+    couplings in the EW-unbroken phase (Eq. 4 of the manual). 
+    If E2 < mZ, the output is an array of couplings in
+    the EW-broken phase (Eq. 6 of the manual).
+    
+    Note that E1 < mZ with E2 > mZ is not allowed.
+    
+    Input:
+        c - numpy array with 16 elements, with values corresponding
+            to those defined in Eq. 4 of the runDM manual
+        E1 - energy (in GeV) at which c is defined. E1 may be
+            a scalar or a 1-d numpy array.
+        E2 - energy (in GeV) to run to. E2 may be a scalar or 1-d
+            numpy array (with same length as E1).
+    
+    Output:
+        Returns array with length 16 in the final dimension
+        (corresponding either to Eq. 4 or Eq. 6 of the manual).
+        The full dimensions of the array will be (Len(E1), 16).
     """
     
-    #Need to check for size of c
+    #Check length of coupling vector c
+    if not(hasattr(c, "__len__")):
+        sys.exit(" Error in runDM.runCouplings: c must be an array with 16 elements")
+    if (len(c) != 16):
+        sys.exit(" Error in runDM.runCouplings: c must be an array with 16 elements")
     
-    return np.dot(evolutionMat(E1, E2), c)
+    
+    #If E1 and E2 are scalar
+    if not((hasattr(E1, "__len__"))or(hasattr(E2,"__len__"))):
+        return np.dot(evolutionMat(E1, E2), c)
+       
+    #If E1 or E2 are arrays, need to check to make sure correct
+    #array dimensions are returned 
+    
+    #Both E1, E2 are arrays (check they are same length...)
+    if ((hasattr(E1, "__len__"))and(hasattr(E2, "__len__"))):
+        n1 = len(E1)
+        if (len(E2) != n1):
+            sys.exit(" Error in runDM.runCouplings: E1 and E2 must have same length (or be scalar)")
+        else:
+            result = np.zeros([n1,16])
+            for i in range(n1):
+                result[:, i] = np.dot(evolutionMat(E1[i], E2[i]), c)
+
+    #Only E1 is an array
+    elif (hasattr(E1, "__len__")):
+        n1 = len(E1)
+        result = np.zeros([n1,16])
+        for i in range(n1):
+            result[:, i] = np.dot(evolutionMat(E1[i], E2), c)
+
+    #Only E2 is an array
+    elif (hasattr(E2, "__len__")):
+        n2 = len(E2)
+        result = np.zeros([n2,16])
+        for i in range(n2):
+            result[i, :] = np.dot(evolutionMat(E1, E2[i]), c)
 
 
-#%%
+    return result
+
+
+
+#%% Calculate couplings to light quarks at the nuclear scale
 def DDCouplings(c, E1):
     """
-    DDCouplings...
-    """
-    #Might just want to fix E2...
+    Calculate vector (V) and axial-vector (A) couplings
+    to u, d, s quarks at the nuclear energy scale
+    starting from the high energy coupling vector c,
+    defined at energy E1 (in GeV).
+
+    Input:
+        c - numpy array with 16 elements, with values corresponding
+            to those defined in Eq. 4 of the runDM manual
+        E1 - energy (in GeV) at which c is defined. E1 may be
+            a scalar or a 1-d numpy array.
     
-    cf = runCouplings(c, E1, 1.0)
-    return cf[[0,1,8,9,11]]
+    Output:
+        Returns array with length 5 in the final dimension,
+        corresponding to (CVu, CVd, CAu, CAd, CAs).
+        The dimensions of the array will be (Len(E1), 5).
+    """
+    
+    #Check length of coupling vector c
+    if not(hasattr(c, "__len__")):
+        sys.exit(" Error in runDM.runCouplings: c must be an array with 16 elements")
+    if (len(c) != 16):
+        sys.exit(" Error in runDM.runCouplings: c must be an array with 16 elements")
+    
+    #If E1 is scalar
+    if not(hasattr(E1, "__len__")):
+        return runCouplings(c, E1, 1.0)[[0,1,8,9,11]]
+
+    #If E1 is an array
+    else:
+        n1 = len(E1)
+        result = np.zeros([n1,5])
+        for i in range(n1):
+            result[i,:] = runCouplings(c, E1[i], 1.0)[[0,1,8,9,11]]
+            
+        return result
     
     

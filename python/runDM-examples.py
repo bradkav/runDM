@@ -1,6 +1,4 @@
 """
-runDM-examples.py
-
 Example script for the python implementation of runDM. See also the 
 runDM-examples.ipynb ipython notebook for more detailed explanation.
 
@@ -51,15 +49,13 @@ print " "
 
 #Finally, let's take a look at the value of the low-energy light quark couplings (evaluated at mu_N ~ 1 GeV) as a function of the mediator mass m_V. 
 
-mV = np.logspace(0, 6, 1000)
-c_q = np.zeros([1000,5])
 
 #Set the value of the high energy couplings
 c_high = runDM.setBenchmark("QuarksAxial")
 
 #Calculate the low energy couplings
-for i in range(1000):
-    c_q[i,:] = runDM.DDCouplings(c_high, mV[i])
+mV = np.logspace(0, 6, 1000)
+c_q = runDM.DDCouplings(c_high, mV)
 
 #Now let's do some plotting
 f, axarr = pl.subplots(3,2 ,figsize=(8,8))
@@ -76,6 +72,7 @@ for k in range(5):
     ax.axvline(91.1875, color='k', linestyle='--')
     ax.set_xlim(1.0, 10**6)
     ax.get_yticklabels()[-1].set_visible(False)
+    ax.tick_params(axis='both', labelsize=12.0)
     
 axarr[2,0].set_axis_off()
 pl.tight_layout()

@@ -65,9 +65,9 @@
 
 \section{Overview}
 
-The \runDM code is a tool for calculating the low energy couplings of Dark Matter (DM) to the Standard Model (SM) in Simplified Models with vector mediators. By specifying the mass of the mediator and the couplings of the mediator to SM fields at high energy, the code outputs the couplings at a different energy scale, fully taking into account the mixing of all dimension-6 operators.
+The \runDM code is a tool for calculating the low energy couplings of Dark Matter (DM) to the Standard Model (SM) in Simplified Models with vector mediators. By specifying the mass of the mediator and the couplings of the mediator to SM fields at high energy, the code outputs the couplings at a different energy scale, fully taking into account the mixing of all dimension-6 operators. Further details about the physics behind the can can be found in Appendix B of \href{http://arxiv.org/abs/1605.XXXXX}{arXiv:1605.XXXXX}.
 
-At present, the code is written in two languages: \textit{Mathematica} and \textit{Python}. For installation instructions and example code in each language, skip straight to Sec.~\ref{sec:implementations}. Example files/notebooks for all versions of the code are available (along with the code itself) are available at: \href{https://github.com/bradkav/runDM/releases}{https://github.com/bradkav/runDM/releases}. If you are interested in an implementation in another language, please get in touch and we'll do what we can to add it. Please contact Bradley Kavanagh (\href{mailto:bradkav@gmail.com?subject=runDM v.10}{bradkav@gmail.com}) for any questions, problems, bugs and suggestions.
+At present, the code is written in two languages: \textit{Mathematica} and \textit{Python}. For installation instructions and example code in each language, skip straight to Sec.~\ref{sec:implementations}. Example files/notebooks for all versions of the code (along with the code itself) are available at: \href{https://github.com/bradkav/runDM/releases/latest}{https://github.com/bradkav/runDM/releases/latest}. If you are interested in an implementation in another language, please get in touch and we'll do what we can to add it. Please contact Bradley Kavanagh (\href{mailto:bradkav@gmail.com?subject=runDM v.10}{bradkav@gmail.com}) for any questions, problems, bugs and suggestions.
 
 If you make use of \runDM in your work, please cite it as:
 
@@ -92,7 +92,7 @@ F. D'Eramo, B. J. Kavanagh \& P. Panci, \textit{You can hide but you have to run
 
 This section describes the general framework of \runDM, describing the general usage, inputs and outputs of \runDM, as well as pseudocode for how to use the most important functions. For implementation-specific information, please see Sec.~\ref{sec:implementations}.
 
-The core of \runDM is the function \texttt{runCouplings}($\mathbf{c}$, $E_1$, $E_2$). This function accepts as input a vector of couplings $\mathbf{c}$, specified at some energy $E_1$. It returns a different vector of couplings, evaluated at the \textit{lower} energy $E_2$, taking into account RG evolution between the two energy scales. Full details about the numerical implementation can be found in Appendix~B of arXiv:1605.XXXXX. Here, we simply outline which coupling values are required as input and output.
+The core of \runDM is the function \texttt{runCouplings}($\mathbf{c}$, $E_1$, $E_2$). This function accepts as input a vector of couplings $\mathbf{c}$, specified at some energy $E_1$. It returns a different vector of couplings, evaluated at some other energy $E_2$, taking into account RG evolution between the two energy scales. Full details about the numerical implementation can be found in Appendix~B of arXiv:1605.XXXXX. Here, we simply outline which coupling values are required as input and output.
 
 The input vector  $\mathbf{c}$ has 16 elements, the coefficients of the dimension-6 DM-SM operators of the form: $\mathcal{O}_{\mathrm{DM},\mu} \, \mathcal{O}_\mathrm{SM}^\mu$. The structure of the DM operator does not affect the running of the coefficients and may take the following forms for fermionic DM $\chi$:
 
@@ -191,9 +191,11 @@ If the value of \texttt{benchmarkID} is not recognised, \texttt{setBenchmark} si
 
 \subsection{runCouplings}
 
-The function \texttt{runCouplings}($\mathbf{c}$, $E_1$, $E_2$) accepts as input a vector of couplings $\mathbf{c}$, defined at energy $E_1$ (in GeV) and returns a vector of couplings evaluated at energy $E_2$ (in GeV), taking into account the running, matching and mixing between the two energies. The input vector $\mathbf{c}$ has the form of Eq.~\ref{eq:cdef}.
+The function \texttt{runCouplings}($\mathbf{c}$, $E_1$, $E_2$) accepts as input a vector of couplings $\mathbf{c}$, defined at energy $E_1$ (in GeV) and returns a vector of couplings evaluated at energy $E_2$ (in GeV), taking into account the running, matching and mixing between the two energies. The energies $E_1$ and $E_2$ must be in the range $[1, 10^8]$ GeV (the evolution matrices have not been calculated outside of that range). The input vector $\mathbf{c}$ has the form of Eq.~\ref{eq:cdef}.
 
- If $E_2 > m_Z$, \texttt{runCouplings} returns the elements of $\mathbf{c}$, the vector of couplings above the EWSB scale defined in Eq.~\ref{eq:cdef}. Alternatively, if $E_2 < m_Z$, \texttt{runCouplings} returns the elements of $\mathbf{\mathcal{C}}$, the vector of couplings in the EFT below the EWSB scale, defined in Eq.~\ref{eq:cdef2}.
+ If $E_2 > m_Z$, \texttt{runCouplings} returns the elements of $\mathbf{c}$, the vector of couplings above the EWSB scale defined in Eq.~\ref{eq:cdef}. Alternatively, if $E_2 < m_Z$, \texttt{runCouplings} returns the elements of $\mathbf{\mathcal{C}}$, the vector of couplings in the EFT below the EWSB scale, defined in Eq.~\ref{eq:cdef2}. Note that \texttt{runCoupling} will return an error if $E_1 < m_Z$ and $E_2 > m_Z$ - in this case the matching at the EWSB-scale is not unique.
+
+The function \texttt{runCouplings} is \textit{vectorized}, meaning that it will accept $E_1$ and $E_2$ as arrays as well as single numbers. \texttt{runCouplings} will happily deal with one of $E_1$ and $E_2$ being an array and the other being a scalar. The output of \textit{runCouplings} will be an array with dimensions \{Length($E_1$), 16\} or \{Length($E_2$), 16\}, depending on which of $E_1$ and $E_2$ is an array. If both $E_1$ and $E_2$ are arrays, they should have the same length and \textit{runCouplings} will return an array with dimensions \{Length($E_1$), 16\}. The function is \textit{not vectorized} in $\mathbf{c}$ - i.e. $\mathbf{c}$ should always be a 1-dimensional array with 16 elements.
 
 \subsection{DDCouplings}
 \label{sec:DDCouplings}
@@ -204,6 +206,7 @@ The function \texttt{DDCouplings}($\mathbf{c}$, $E_1$) accepts as input a vector
 \mathcal{C}_q = \left( \mathcal{C}_V^{(u)}, \mathcal{C}_V^{(d)}, \mathcal{C}_A^{(u)}, \mathcal{C}_A^{(d)}, \mathcal{C}_A^{(s)} \right)\,.
 \end{equation}
 
+As in \texttt{runCouplings}, $E_1$ must be in the range $[1, 10^8]$ GeV. \texttt{DDCouplings} is also vectorized, so it will accept $E_1$ as a scalar or an array. It will return an array with dimensions \{Length($E_1$), 5\}.
 
 \section{Implementations}
 \label{sec:implementations}
@@ -221,12 +224,12 @@ Below is an example code snippet for calculating (and plotting) the low energy c
 \begin{lstlisting}[language=mathematica]
 Get[NotebookDirectory[] <> "runDM.m"];
 
-#Set benchmark
+(*Set benchmark*)
 chigh = setBenchmark["QuarksAxial"];
 
 clabels = {"cVu", "cVd", "cAu", "cAd", "cAs"};
 
-#Calculate and plot
+(*Calculate and plot*)
 Table[Plot[{DDCouplings[chigh, 10^lmv][[k]]}, {lmv, 0.0, 6.0}, 
   PlotTheme -> "Scientific", 
   FrameLabel -> {"Log10[mv/GeV]", clabels[[k]]}, 
@@ -250,20 +253,17 @@ import numpy as np
 from matplotlib import pyplot as pl
 import runDM
 
-mV = np.logspace(0, 6, 1000)
-c_q = np.zeros([1000,5])
-
 #Set benchmark
 c_high = runDM.setBenchmark("QuarksAxial")
 
-clabels = ['c_V^u','c_V^d','c_A^u','c_A^d','c_A^s']
-
 #Calculate the low energy couplings
-for i in range(1000):
-    c_q[i,:] = runDM.DDCouplings(c_high, mV[i])
+mV = np.logspace(0, 6, 1000)
+c_q = runDM.DDCouplings(c_high, mV)
 
 #Now let's do some plotting
 f, axarr = pl.subplots(5,figsize=(5,9))
+
+clabels = ['c_V^u','c_V^d','c_A^u','c_A^d','c_A^s']
 
 for k in range(5):
     ax = axarr[k]
