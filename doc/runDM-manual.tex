@@ -65,7 +65,7 @@
 
 \section{Overview}
 
-The \runDM code is a tool for calculating the low energy couplings of Dark Matter (DM) to the Standard Model (SM) in Simplified Models with vector mediators. By specifying the mass of the mediator and the couplings of the mediator to SM fields at high energy, the code outputs the couplings at a different energy scale, fully taking into account the mixing of all dimension-6 operators. Further details about the physics behind the can can be found in Appendix B of \href{http://arxiv.org/abs/1605.XXXXX}{arXiv:1605.XXXXX}.
+The \runDM code is a tool for calculating the low energy couplings of Dark Matter (DM) to the Standard Model (SM) in Simplified Models with vector mediators. By specifying the mass of the mediator and the couplings of the mediator to SM fields at high energy, the code outputs the couplings at a different energy scale, fully taking into account the mixing of all dimension-6 operators. Further details about the physics behind the code can be found in Appendix B of \href{http://arxiv.org/abs/1605.XXXXX}{arXiv:1605.XXXXX}.
 
 At present, the code is written in two languages: \textit{Mathematica} and \textit{Python}. For installation instructions and example code in each language, skip straight to Sec.~\ref{sec:implementations}. Example files/notebooks for all versions of the code (along with the code itself) are available at: \href{https://github.com/bradkav/runDM/releases/latest}{https://github.com/bradkav/runDM/releases/latest}. If you are interested in an implementation in another language, please get in touch and we'll do what we can to add it. Please contact Bradley Kavanagh (\href{mailto:bradkav@gmail.com?subject=runDM v.10}{bradkav@gmail.com}) for any questions, problems, bugs and suggestions.
 
@@ -213,7 +213,7 @@ As in \texttt{runCouplings}, $E_1$ must be in the range $[1, 10^8]$ GeV. \texttt
 
 \subsection{Mathematica}
 
-In order to use the \textit{mathematica} implementation of \texttt{runDM}, simply copy the \textit{mathematica} package file \texttt{runDM.m} into the same directory as your notebook and then use \texttt{Get}:
+In order to use the \textit{mathematica} implementation of \texttt{runDM}, simply copy the \textit{mathematica} package file \texttt{mathematica/runDM.m} into the same directory as your notebook and then use \texttt{Get}:
 
 \begin{lstlisting}[language=mathematica]
 Get[NotebookDirectory[] <> "runDM.m"];
@@ -240,7 +240,7 @@ For more detailed examples, see the notebook at \texttt{mathematica/runDM-exampl
 
 \subsection{Python}
 
-In order to use the \textit{python} implementation of \runDM, you will need to have the \href{http://www.numpy.org}{\texttt{numpy}} and \href{https://www.scipy.org/index.html}{\texttt{scipy}} packages installed.  Once that's done, copy the module file \texttt{runDM.py} into the same directory as your python script. Make sure that the folder \texttt{python/data/} is in the same folder as the module file. Then simply import the module:
+In order to use the \textit{python} implementation of \runDM, you will need to have the \href{http://www.numpy.org}{\texttt{numpy}} and \href{https://www.scipy.org/index.html}{\texttt{scipy}} packages installed.  Once that's done, copy the module file \texttt{python/runDM.py} into the same directory as your python script. Make sure that the folder \texttt{python/data/} is in the same folder as the module file. Then simply import the module:
 
 \begin{lstlisting}[language=Python]
 import runDM
