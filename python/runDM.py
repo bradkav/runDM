@@ -17,8 +17,8 @@ import sys
 #-------------Initialisation---------------
 #------------------------------------------
 
-#Define the Z-mass
-mZ = 91.1875 #GeV
+mZ = 91.1875 #Z-mass in GeV
+mN = 0.938 #Nucleon mass in GeV
 
 EvolutionSM = np.zeros([16,16,1401])
 EvolutionEMSM = np.zeros([16,16,453])
@@ -58,6 +58,7 @@ UevolutionBELOW = interp1d(t_EMSM, EvolutionEMSM)
 #%% Initialise empty coupling vector
 def initCouplings():
     """
+    initCouplings()
     Returns a numpy array with 16 elements, all set to zero,
     for use in initialising coupling vectors.
     """
@@ -67,6 +68,7 @@ def initCouplings():
 #%% Generate coupling vectors with preset operator structures
 def setBenchmark(benchmarkID):
     """
+    setBenchmark(benchmarkID)
     Returns a numpy array with 16 elements, corresponding to the
     vector of couplings defined in Eq. 4 of the runDM manual. 
     The value of the couplings is defined by the string benchmarkID.
@@ -106,6 +108,7 @@ def setBenchmark(benchmarkID):
 #%% Calculate matrix to evolve couplings
 def evolutionMat(E1, E2):
     """
+    evolutionMat(E1, E2)
     Calculate 16x16 matrix for evolving coupling vector
     between energies E1 and E2 (in GeV). evolutionMat
     takes care of the relative values of E1 and E2.
@@ -162,6 +165,7 @@ def evolutionMat(E1, E2):
 #%% Evolve couplings between E1 and E2
 def runCouplings(c, E1, E2):
     """
+    runCouplings(c, E1, E2)
     Calculate running of couplings c between two energies
     E1 and E2. If E2 > mZ, the output is an array of 
     couplings in the EW-unbroken phase (Eq. 4 of the manual). 
@@ -228,8 +232,9 @@ def runCouplings(c, E1, E2):
 
 
 #%% Calculate couplings to light quarks at the nuclear scale
-def DDCouplings(c, E1):
+def DDCouplingsQuarks(c, E1):
     """
+    DDCouplingsQuarks(c, E1)
     Calculate vector (V) and axial-vector (A) couplings
     to u, d, s quarks at the nuclear energy scale
     starting from the high energy coupling vector c,
@@ -266,4 +271,131 @@ def DDCouplings(c, E1):
             
         return result
     
+#%% Calculate non-relativistic couplings to protons
+def DDCouplingsProton(c, E1, mx, DMcurrent):
     
+	#From quarks to nucleons
+	#Values from arXiv:1202.1292
+    deltau_p = 0.84
+    deltad_p = -0.44
+    deltas_p = -0.03
+    
+    #Get quark couplings
+    cuV, cdV, cuA, cdA, csA = DDCouplingsQuarks(c, E1)
+
+    #Calculate non-relativistic proton couplings
+    #Note the number of operators is shifted by 1
+    #because python uses zero-indexed arrays
+    lambda_p = np.zeros(12)
+    if (DMcurrent == "scalar"):
+        lambda_p[0] = 4*mx*mN*(2*cuV+ cdV)
+        lambda_p[6] = -8*mx*mN*(deltau_p*cuA + deltad_p*cdA + deltas_p*csA)
+    elif (DMcurrent == "vector"):
+        lambda_p[0] = 4*mx*mN *(2*cuV + cdV)
+        lambda_p[6] = -8*mx*mN*(deltau_p*cuA + deltad_p*cdA + deltas_p*csA)
+        lambda_p[8] = 8*mN*(deltau_p*cuA + deltad_p*cdA + deltas_p*csA)
+    elif (DMcurrent == "axial-vector"):
+        lambda_p[3] = -16*mx*mN*(deltau_p*cuA + deltad_p*cdA + deltas_p*csA)
+        lambda_p[7] = 8*mx*mN*(2*cuV + cdV)
+        lambda_p[8] = 8*mx*(2*cuV + cdV)
+
+    return lambda_p/E1**2
+    
+#%% Calculate non-relativistic couplings to neutrons
+def DDCouplingsNeutron(c, E1, mx, DMcurrent):
+
+    #From quarks to nucleons
+    #Values from arXiv:1202.1292
+    deltau_p = 0.84
+    deltad_p = -0.44
+    deltas_p = -0.03
+
+    #Get quark couplings
+    cuV, cdV, cuA, cdA, csA = DDCouplingsQuarks(c, E1)
+
+    #Calculate non-relativistic neutron couplings
+    #Note the number of operators is shifted by 1
+    #because python uses zero-indexed arrays
+    lambda_n = np.zeros(12)
+    if (DMcurrent == "scalar"):
+        lambda_n[0] = 4*mx*mN*(cuV + 2*cdV)
+        lambda_n[6] = -8*mx*mN*(deltad_p*cuA + deltau_p*cdA + deltas_p*csA)
+    elif (DMcurrent == "vector"):
+        lambda_n[0] = 4*mx*mN*(cuV + 2*cdV)
+        lambda_n[6] = -8*mx*mN*(deltad_p*cuA + deltau_p*cdA + deltas_p*csA)
+        lambda_n[8] = 8*mN*(deltad_p*cuA + deltau_p*cdA + deltas_p*csA)
+    elif (DMcurrent == "axial-vector"):
+        lambda_n[3] = -16*mx*mN*(deltad_p*cuA + deltau_p*cdA + deltas_p*csA)
+        lambda_n[7] = 8*mx*mN*(cuV + 2*cdV)
+        lambda_n[8] = 8*mx*(cuV + 2.0*cdV)
+    
+    return lambda_n/E1**2
+
+
+#%% Calculate non-relativistic couplings to nucleons
+def DDCouplingsNR(c, E1, mx, DMcurrent, N):
+    """
+    DDCouplingsNR(c, E1, mx, DMcurrent, N)
+	Calculate coefficients of the non-relativistic DM-nucleon
+	operators at the nuclear energy scale, with numbering as 
+	in arXiv:1307.5955, taking into account running of the 
+	couplings from high energy E1 (in GeV). The result will 
+	depend on the structure of the DM interaction and on the 
+    DM mass. 
+
+    Input:
+        c - vector with 16 elements, with values corresponding
+            to those defined in Eq. 4 of the runDM manual
+        E1 - energy (in GeV) at which c is defined. E1 may be
+            a scalar or an array.
+		mx - DM mass in GeV. mx must be a single number.
+		DMcurrent - string specifying the DM interaction current.
+			The options are 'scalar', 'vector' and 'axial-vector'.
+			The corresponding definitions of the DM currents are
+			given in Eq. 8 of the manual.
+		N - string specifying the nucleon type: 'p' for proton,
+			'n' for neutron.
+
+    Output:
+        Returns array with length 12 in the final dimension,
+        corresponding to the coefficients of the first 12
+		non-relativistic DM-nucleon operators listed in 
+		arXiv:1307.5955. The coefficients include a factor
+        of 1/E1^2.  The dimensions of the array will
+		be (Len(E1), 12)."
+    """
+    
+    #Check parameter values
+    if N not in ("p", "n"):
+        sys.exit(" Error in runDM.DDCouplingsNR: N must be either 'p' or 'n'.")
+    if DMcurrent not in ("scalar", "vector", "axial-vector"):
+        sys.exit(" Error in runDM.DDCouplingsNR: DMcurrent must be 'scalar', 'vector' or 'axial-vector'.")
+    
+    #Check length of coupling vector c
+    if not(hasattr(c, "__len__")):
+        sys.exit(" Error in runDM.DDCouplingsNR: c must be an array with 16 elements")
+    if (len(c) != 16):
+        sys.exit(" Error in runDM.DDCouplingsNR: c must be an array with 16 elements")
+    
+    #Check that mx is a single number
+    if hasattr(mx, "__len__"):
+        sys.exit(" Error in runDM.DDCouplingsNR: mx must be a single number.")
+
+    #Determine nucleon type
+    if (N == "p"):
+        DDfunc = lambda E: DDCouplingsProton(c, E, mx, DMcurrent)
+    elif (N == "n"):
+        DDfunc = lambda E: DDCouplingsNeutron(c, E, mx, DMcurrent)
+    
+    #If E1 is scalar
+    if not(hasattr(E1, "__len__")):
+        return DDfunc(E1)
+
+    #If E1 is an array
+    else:
+        n1 = len(E1)
+        result = np.zeros([n1,12])
+        for i in range(n1):
+            result[i,:] = DDfunc(E1[i])
+        return result
+        

@@ -1,6 +1,8 @@
 """
-Example script for the python implementation of runDM. See also the 
-runDM-examples.ipynb ipython notebook for more detailed explanation.
+runDM-examples.py
+
+Example script for the python implementation of runDM v1.0. See also the 
+runDM-examples.ipynb ipython notebook for more detailed explanations.
 
 Please contact Bradley Kavanagh (bradkav@gmail.com) for any questions,
 problems, bugs and suggestions.
@@ -37,9 +39,9 @@ E2 = 1
 c_low = runDM.runCouplings(c_high, E1, E2)
 print "Low energy couplings:", c_low, "\n"
 
-#If we're only interested in direct detection experiments, we can use the function DDCouplings(c, E_1). In this case, the code evolves the couplings from energy $E_1$, down to the nuclear energy scale ~ 1 GeV. The output is an array with 5 elements, the vector and axial-vector couplings to the light quarks.
+#If we're only interested in direct detection experiments, we can use the function DDCouplingsQuarks(c, E_1). In this case, the code evolves the couplings from energy $E_1$, down to the nuclear energy scale ~ 1 GeV. The output is an array with 5 elements, the vector and axial-vector couplings to the light quarks.
 
-c_q = runDM.DDCouplings(c_high, E1)
+c_q = runDM.DDCouplingsQuarks(c_high, E1)
 
 couplings_str = ['c_V^u','c_V^d','c_A^u','c_A^d','c_A^s']
 
@@ -49,13 +51,12 @@ print " "
 
 #Finally, let's take a look at the value of the low-energy light quark couplings (evaluated at mu_N ~ 1 GeV) as a function of the mediator mass m_V. 
 
-
 #Set the value of the high energy couplings
 c_high = runDM.setBenchmark("QuarksAxial")
 
 #Calculate the low energy couplings
 mV = np.logspace(0, 6, 1000)
-c_q = runDM.DDCouplings(c_high, mV)
+c_q = runDM.DDCouplingsQuarks(c_high, mV)
 
 #Now let's do some plotting
 f, axarr = pl.subplots(3,2 ,figsize=(8,8))
@@ -76,4 +77,19 @@ for k in range(5):
     
 axarr[2,0].set_axis_off()
 pl.tight_layout()
+
+#The function DDCouplingsNR(c, E1, mx, DMcurrent, N) calculates the running of the operators to the nuclear energy scale, but it also performs the embedding of the quarks in the nucleon (N = 'p', 'n') and the matching onto the non-relativisitic (NR) DM-nucleon operators, defined in arXiv:1203.3542. In order to perform the matching, the user must specify mx (DM mass in GeV) and DMcurrent, the DM interaction structure.
+
+#The output is a list of coefficients of the first 12 NR operators, with numbering matching that of arXiv:1203.3542 (but remember that python array indices start at zero, so O^{NR}_7 is at index 6):
+
+#Set high energy couplings
+chigh = runDM.setBenchmark("QuarksAxial")
+
+#Set DM parameters
+E1 = 10000; mx = 100; DMcurrent = "vector";
+print "NR DM-proton couplings:", \
+    runDM.DDCouplingsNR(chigh, E1, mx, DMcurrent, "p")
+print "NR DM-neutron couplings:", \
+    runDM.DDCouplingsNR(chigh, E1, mx, DMcurrent, "n")
+    
 pl.show()

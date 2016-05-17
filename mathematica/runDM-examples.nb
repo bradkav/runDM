@@ -10,40 +10,52 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     44293,        966]
-NotebookOptionsPosition[     43048,        919]
-NotebookOutlinePosition[     43445,        937]
-CellTagsIndexPosition[     43402,        934]
+NotebookDataLength[     54722,       1184]
+NotebookOptionsPosition[     52979,       1119]
+NotebookOutlinePosition[     53376,       1137]
+CellTagsIndexPosition[     53333,       1134]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
-Cell[TextData[StyleBox["runDM", "Section"]], "Text",
+Cell[TextData[StyleBox["runDM v1.0 - examples", "Section"]], "Text",
  CellChangeTimes->{{3.670046420058798*^9, 3.670046421483305*^9}, {
-  3.6700485414182*^9, 3.670048559587879*^9}}],
+  3.6700485414182*^9, 3.670048559587879*^9}, {3.672484515316504*^9, 
+  3.672484535050445*^9}}],
 
 Cell[CellGroupData[{
 
 Cell[TextData[{
- StyleBox["With runDMC, it\[CloseCurlyQuote]s Tricky. With runDM, it\
+ StyleBox["With runDMC, It\[CloseCurlyQuote]s Tricky. With runDM, it\
 \[CloseCurlyQuote]s not.",
   FontSlant->"Italic"],
  "\n\n",
  StyleBox["runDM ",
   FontWeight->"Bold"],
- "is a tool for calculating the low energy couplings of Dark Matter (DM) to \
-light quarks in Simplified Models with vector mediators. By specifying the \
-mass of the mediator and the couplings of the mediator to SM fields at high \
-energy, the code outputs the low energy couplings to up, down and strange \
-quarks, taking into account the mixing of all dimension-6 operators."
+ "is a tool for calculating the running of the couplings of Dark Matter (DM) \
+to the Standard Model (SM) in simplified models with vector mediators. By \
+specifying the mass of the mediator and the couplings of the mediator to SM \
+fields at high energy, the code can be used to calculate the couplings at low \
+energy, taking into account the mixing of all dimension-6 operators. The code \
+can also be used to extract the operator coefficients relevant for direct \
+detection, namely low energy couplings to up, down and strange quarks and to \
+protons and neutrons. See the manual and arXiv:1605.XXXXX for more details."
 }], "Text",
  CellChangeTimes->{{3.669890279695353*^9, 3.6698902881684923`*^9}, {
-   3.6698903334911203`*^9, 3.669890376477219*^9}, 3.670046429880863*^9}],
+   3.6698903334911203`*^9, 3.669890376477219*^9}, 3.670046429880863*^9, {
+   3.672125227441559*^9, 3.672125241536643*^9}, {3.6721255028970747`*^9, 
+   3.672125514830121*^9}, 3.672475680183855*^9, {3.672483462707242*^9, 
+   3.672483462938538*^9}, 3.672483526192295*^9}],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Initialisation", "Subsubsection"]], "Text",
+ CellChangeTimes->{{3.672125343741725*^9, 3.672125348335681*^9}}],
 
 Cell["Let\[CloseCurlyQuote]s start by loading in the runDM code.", "Text",
  CellChangeTimes->{{3.669721048220956*^9, 3.6697210552561502`*^9}, {
   3.6698902425612164`*^9, 3.669890242967462*^9}, {3.66989038253837*^9, 
-  3.669890392170989*^9}}],
+  3.669890392170989*^9}, {3.672125338094192*^9, 3.672125341904893*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -67,11 +79,13 @@ Cell[BoxData[
 
 Cell["\<\
 First, let\[CloseCurlyQuote]s specify the couplings at high energy. This will \
-be an 1-D array with 16 elements. runDM comes with a number of pre-defined \
-benchmarks, which can be accessed using setBenchmark.\
+be a 1-D array with 16 elements, defined in Eq. 4 of the manual. runDM comes \
+with a number of pre-defined benchmarks, which can be accessed using \
+setBenchmark.\
 \>", "Text",
  CellChangeTimes->{{3.6697211670824347`*^9, 3.66972118565366*^9}, 
-   3.6698904052482567`*^9}],
+   3.6698904052482567`*^9, 3.672483581661016*^9, {3.672483642447514*^9, 
+   3.67248364841932*^9}}],
 
 Cell[CellGroupData[{
 
@@ -118,8 +132,12 @@ Cell[BoxData["\<\"Axial-vector coupling to all SM fermions: {-1., 1., 1., \
    3.671184187780168*^9, {3.6711843065617743`*^9, 3.6711843430506897`*^9}, 
    3.6711843766355057`*^9, 3.671184408850956*^9, 3.671184722803068*^9, 
    3.671184800515514*^9, 3.671196999872315*^9, 3.671346842542715*^9, 
-   3.671353487950624*^9, 3.671355333861816*^9},
- Background->GrayLevel[0.85]],
+   3.671353487950624*^9, 3.671355333861816*^9, 3.6721251528760557`*^9, 
+   3.6721251922588663`*^9, {3.672125268378684*^9, 3.672125314827025*^9}, 
+   3.6724839866351833`*^9, {3.672484284455431*^9, 3.6724843164970217`*^9}, 
+   3.672484394939598*^9, 3.672484480792346*^9, {3.672486089975378*^9, 
+   3.672486099755538*^9}, 3.6724864433372*^9, {3.672486532419406*^9, 
+   3.672486541952952*^9}}],
 
 Cell[BoxData["\<\"Vector coupling to all SM leptons: {0., 0., 0., 1., 1., 0., \
 0., 0., 1., 1., 0., 0., 0., 1., 1., 0.}\"\>"], "Print",
@@ -136,8 +154,12 @@ Cell[BoxData["\<\"Vector coupling to all SM leptons: {0., 0., 0., 1., 1., 0., \
    3.671184187780168*^9, {3.6711843065617743`*^9, 3.6711843430506897`*^9}, 
    3.6711843766355057`*^9, 3.671184408850956*^9, 3.671184722803068*^9, 
    3.671184800515514*^9, 3.671196999872315*^9, 3.671346842542715*^9, 
-   3.671353487950624*^9, 3.6713553338686867`*^9},
- Background->GrayLevel[0.85]]
+   3.671353487950624*^9, 3.671355333861816*^9, 3.6721251528760557`*^9, 
+   3.6721251922588663`*^9, {3.672125268378684*^9, 3.672125314827025*^9}, 
+   3.6724839866351833`*^9, {3.672484284455431*^9, 3.6724843164970217`*^9}, 
+   3.672484394939598*^9, 3.672484480792346*^9, {3.672486089975378*^9, 
+   3.672486099755538*^9}, 3.6724864433372*^9, {3.672486532419406*^9, 
+   3.672486541960023*^9}}]
 }, Open  ]],
 
 Cell["\<\
@@ -189,9 +211,20 @@ Cell[BoxData["\<\"User-defined couplings: {0, 0, 1., 0, 0, 0, -1., 0, 0, 0, \
    3.6711836152155237`*^9, 3.671184187859065*^9, {3.671184306606615*^9, 
    3.671184343093998*^9}, 3.6711843766802797`*^9, 3.6711844089000797`*^9, 
    3.671184722836018*^9, 3.671184800560091*^9, 3.6711969999172*^9, 
-   3.671346842579262*^9, 3.67135349091794*^9, 3.671355333899803*^9},
- Background->GrayLevel[0.85]]
+   3.671346842579262*^9, 3.67135349091794*^9, 3.671355333899803*^9, 
+   3.6721251529093122`*^9, 3.67212519229552*^9, 3.672125268419401*^9, 
+   3.672125314873361*^9, 3.672483986679636*^9, {3.672484284495954*^9, 
+   3.6724843165323973`*^9}, 3.6724843949715557`*^9, 3.6724844808360777`*^9, {
+   3.67248609001198*^9, 3.672486099792705*^9}, 3.672486443380934*^9, {
+   3.672486532455999*^9, 3.672486541991321*^9}}]
+}, Open  ]]
 }, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["runCouplings: running between arbitrary scales", \
+"Subsubsection"]], "Text",
+ CellChangeTimes->{{3.67212537047158*^9, 3.672125407841511*^9}}],
 
 Cell[TextData[{
  "From these high energy couplings (defined at some energy ",
@@ -240,10 +273,8 @@ the manual) -",
     SubscriptBox["E", "2"], "is", " ", "below", " ", 
     RowBox[{
      SubscriptBox["m", "Z"], "."}]}], TraditionalForm]]],
- " Don\[CloseCurlyQuote]t worry, ",
- StyleBox["runDM",
-  FontSlant->"Italic"],
- " takes care of the relative values of ",
+ " Don\[CloseCurlyQuote]t worry, runDM takes care of the relative values of \
+",
  Cell[BoxData[
   FormBox[
    RowBox[{
@@ -254,58 +285,80 @@ the manual) -",
  CellChangeTimes->{{3.670042729002287*^9, 3.6700428067153177`*^9}, {
    3.670042909985353*^9, 3.670042973869691*^9}, {3.670043005495775*^9, 
    3.670043303726968*^9}, {3.67119022588736*^9, 3.67119022733749*^9}, 
-   3.671192117041773*^9, {3.671343652351838*^9, 3.6713436618101377`*^9}}],
+   3.671192117041773*^9, {3.671343652351838*^9, 3.6713436618101377`*^9}, {
+   3.6721253651168547`*^9, 3.6721253674616747`*^9}}],
 
 Cell[CellGroupData[{
 
-Cell[BoxData[{
+Cell[BoxData[
  RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Run", " ", "from", " ", "1", " ", "TeV", " ", "to", " ", "10", " ", 
+    "GeV"}], "*)"}], "\[IndentingNewLine]", 
   RowBox[{
-   SubscriptBox["E", "1"], " ", "=", " ", "1000"}], ";", 
-  RowBox[{
-   SubscriptBox["E", "2"], " ", "=", " ", "1"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{"clow", " ", "=", " ", 
-  RowBox[{"runCouplings", "[", 
-   RowBox[{"chigh", ",", " ", 
-    SubscriptBox["E", "1"], ",", " ", 
-    SubscriptBox["E", "2"]}], "]"}]}]}], "Input",
+   RowBox[{
+    RowBox[{
+     SubscriptBox["E", "1"], " ", "=", " ", "1000"}], ";", 
+    RowBox[{
+     SubscriptBox["E", "2"], " ", "=", " ", "10"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"clow", " ", "=", " ", 
+    RowBox[{"runCouplings", "[", 
+     RowBox[{"chigh", ",", " ", 
+      SubscriptBox["E", "1"], ",", " ", 
+      SubscriptBox["E", "2"]}], "]"}]}]}]}]], "Input",
  CellChangeTimes->{{3.6700435261813498`*^9, 3.67004357030402*^9}, {
   3.670043713332363*^9, 3.6700437149150257`*^9}, {3.671183555820355*^9, 
   3.6711835677460938`*^9}, {3.671190218797594*^9, 3.6711902199034023`*^9}, {
   3.6713535648678102`*^9, 3.6713535671032267`*^9}, {3.671353599749897*^9, 
   3.671353614645306*^9}, {3.6713536998465023`*^9, 3.671353736106159*^9}, {
-  3.671353972874896*^9, 3.67135400620627*^9}},
+  3.671353972874896*^9, 3.67135400620627*^9}, {3.672483707288652*^9, 
+  3.672483737888007*^9}, {3.672483811073606*^9, 3.672483855256912*^9}},
  Background->GrayLevel[0.85]],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.010933520147259398`", ",", "0.4945339220312985`", ",", 
-   RowBox[{"-", "0.4890664798527406`"}], ",", 
-   RowBox[{"-", "0.005466077968701338`"}], ",", 
-   RowBox[{"-", "0.005466312513039151`"}], ",", 
-   RowBox[{"-", "0.01640096232581744`"}], ",", 
-   RowBox[{"-", "0.016400962325817448`"}], ",", 
-   RowBox[{"-", "0.016400965318633165`"}], ",", "1.364209856720552`*^-6", ",",
-    "0.49999863579014325`", ",", 
-   RowBox[{"-", "0.49999863579014325`"}], ",", 
-   RowBox[{"-", "1.3642098567201184`*^-6"}], ",", 
-   RowBox[{"-", "1.1296615850345812`*^-6"}], ",", 
-   RowBox[{"-", "1.3642098567208773`*^-6"}], ",", 
-   RowBox[{"-", "1.3642098567188173`*^-6"}], ",", 
-   RowBox[{"-", "1.3612150956951235`*^-6"}]}], "}"}]], "Output",
+  RowBox[{"0.007473275528618641`", ",", "0.4962640443791755`", ",", 
+   RowBox[{"-", "0.4925267244713817`"}], ",", 
+   RowBox[{"-", "0.0037359556208246053`"}], ",", 
+   RowBox[{"-", "0.003736190165162419`"}], ",", 
+   RowBox[{"-", "0.011210595436412663`"}], ",", 
+   RowBox[{"-", "0.011210595436412663`"}], ",", 
+   RowBox[{"-", "0.011210598429228374`"}], ",", "1.3642869694234939`*^-6", 
+   ",", "0.49999863571303077`", ",", 
+   RowBox[{"-", "0.49999863571303077`"}], ",", 
+   RowBox[{"-", "1.3642869694230602`*^-6"}], ",", 
+   RowBox[{"-", "1.129738697737523`*^-6"}], ",", 
+   RowBox[{"-", "1.3642869694234939`*^-6"}], ",", 
+   RowBox[{"-", "1.364286969421434`*^-6"}], ",", 
+   RowBox[{"-", "1.3612922083980654`*^-6"}]}], "}"}]], "Output",
  CellChangeTimes->{{3.671353718126659*^9, 3.671353736339748*^9}, {
-   3.6713539745469007`*^9, 3.6713540067190228`*^9}, 3.671355333930443*^9}]
+   3.6713539745469007`*^9, 3.6713540067190228`*^9}, 3.671355333930443*^9, 
+   3.6721251529436607`*^9, 3.672125192329324*^9, 3.672125268452943*^9, 
+   3.672125314911867*^9, 3.6724837384710283`*^9, 3.672483986716208*^9, {
+   3.6724842845268183`*^9, 3.672484316566368*^9}, 3.672484395005047*^9, 
+   3.672484480869068*^9, {3.6724860900555773`*^9, 3.672486099827482*^9}, 
+   3.6724864434142017`*^9, {3.672486532491289*^9, 3.6724865420246687`*^9}}]
+}, Open  ]]
 }, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["DDCouplingsQuarks: calculating low-energy DM-quark \
+couplings", "Subsubsection"]], "Text",
+ CellChangeTimes->{{3.67212541346603*^9, 3.672125433033332*^9}}],
 
 Cell[TextData[{
  "If we\[CloseCurlyQuote]re only interested in direct detection experiments, \
-we can use the function DDCouplings[c, ",
+we can use the function DDCouplingsQuarks[c, ",
  Cell[BoxData[
   FormBox[
    SubscriptBox["E", "1"], TraditionalForm]]],
  Cell[BoxData[
   FormBox["]", TraditionalForm]]],
- ". In this case, the code evolves the couplings from energy ",
+ " to extract the couplings to light quarks. In this case, the code evolves \
+the couplings from energy ",
  Cell[BoxData[
   FormBox[
    SubscriptBox["E", "1"], TraditionalForm]]],
@@ -340,56 +393,67 @@ elements, the vector and axial-vector couplings to light quarks: ",
   3.670046784263509*^9, 3.6700467910614634`*^9}, {3.670750737839508*^9, 
   3.6707507855700207`*^9}, {3.670750871371649*^9, 3.670750871493491*^9}, {
   3.6711872061710453`*^9, 3.671187226874303*^9}, {3.671187731598543*^9, 
-  3.671187736071044*^9}}],
+  3.671187736071044*^9}, {3.6721240949724817`*^9, 3.672124128810453*^9}}],
 
 Cell[CellGroupData[{
 
-Cell[BoxData[{
+Cell[BoxData[
  RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Run", " ", "from", " ", "10", " ", "TeV", " ", "to", " ", "1", " ", 
+    "GeV"}], "*)"}], "\[IndentingNewLine]", 
   RowBox[{
-   RowBox[{"cq", " ", "=", " ", 
-    RowBox[{"DDCouplings", "[", 
-     RowBox[{"chigh", ",", " ", 
-      SubscriptBox["E", "1"]}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"clabels", " ", "=", " ", 
-   RowBox[{"{", 
+   RowBox[{
     RowBox[{
-    "\"\<\!\(TraditionalForm\`\*SuperscriptBox[SubscriptBox[\(c\), \(V\)], \
+     SubscriptBox["E", "1"], "=", " ", "10000"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"cq", " ", "=", " ", 
+     RowBox[{"DDCouplingsQuarks", "[", 
+      RowBox[{"chigh", ",", " ", 
+       SubscriptBox["E", "1"]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"clabels", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<\!\(TraditionalForm\`\*SuperscriptBox[SubscriptBox[\(c\), \(V\)], \
 \((u)\)]\)\>\"", ",", 
-     "\"\<\!\(TraditionalForm\`\*SuperscriptBox[SubscriptBox[\(c\), \(V\)], \
+       "\"\<\!\(TraditionalForm\`\*SuperscriptBox[SubscriptBox[\(c\), \(V\)], \
 \((d)\)]\)\>\"", ",", " ", 
-     "\"\<\!\(TraditionalForm\`\*SuperscriptBox[SubscriptBox[\(c\), \(A\)], \
+       "\"\<\!\(TraditionalForm\`\*SuperscriptBox[SubscriptBox[\(c\), \(A\)], \
 \((u)\)]\)\>\"", ",", " ", 
-     "\"\<\!\(TraditionalForm\`\*SuperscriptBox[SubscriptBox[\(c\), \(A\)], \
+       "\"\<\!\(TraditionalForm\`\*SuperscriptBox[SubscriptBox[\(c\), \(A\)], \
 \((d)\)]\)\>\"", ",", " ", 
-     "\"\<\!\(TraditionalForm\`\*SuperscriptBox[SubscriptBox[\(c\), \(A\)], \
+       "\"\<\!\(TraditionalForm\`\*SuperscriptBox[SubscriptBox[\(c\), \(A\)], \
 \((s)\)]\)\>\""}], "}"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{"Grid", "[", 
-  RowBox[{"Transpose", "[", 
-   RowBox[{"{", 
-    RowBox[{"clabels", ",", " ", "cq"}], "}"}], "]"}], "]"}]}], "Input",
+   RowBox[{"Grid", "[", 
+    RowBox[{"Transpose", "[", 
+     RowBox[{"{", 
+      RowBox[{"clabels", ",", " ", "cq"}], "}"}], "]"}], "]"}]}]}]], "Input",
  CellChangeTimes->{{3.67004676691672*^9, 3.670046797911668*^9}, {
   3.670046828947852*^9, 3.670046925565114*^9}, {3.6700470283077717`*^9, 
   3.670047069696046*^9}, {3.67004778431819*^9, 3.6700477933255568`*^9}, {
   3.670750773040657*^9, 3.670750773975284*^9}, {3.670750876892551*^9, 
-  3.670750878285153*^9}, {3.670755669099739*^9, 3.6707556693771553`*^9}},
+  3.670750878285153*^9}, {3.670755669099739*^9, 3.6707556693771553`*^9}, {
+  3.67212416538062*^9, 3.672124166274087*^9}, {3.6724838340679417`*^9, 
+  3.6724838857104483`*^9}},
  Background->GrayLevel[0.85]],
 
 Cell[BoxData[
  TagBox[GridBox[{
     {"\<\"\\!\\(TraditionalForm\\`\\*SuperscriptBox[SubscriptBox[\\(c\\), \
-\\(V\\)], \\((u)\\)]\\)\"\>", "0.010933520147259398`"},
+\\(V\\)], \\((u)\\)]\\)\"\>", "0.014584656334209453`"},
     {"\<\"\\!\\(TraditionalForm\\`\\*SuperscriptBox[SubscriptBox[\\(c\\), \
-\\(V\\)], \\((d)\\)]\\)\"\>", "0.4945339220312985`"},
+\\(V\\)], \\((d)\\)]\\)\"\>", "0.49271195604735496`"},
     {"\<\"\\!\\(TraditionalForm\\`\\*SuperscriptBox[SubscriptBox[\\(c\\), \
-\\(A\\)], \\((u)\\)]\\)\"\>", "1.364209856720552`*^-6"},
+\\(A\\)], \\((u)\\)]\\)\"\>", "8.568428919511917`*^-6"},
     {"\<\"\\!\\(TraditionalForm\\`\\*SuperscriptBox[SubscriptBox[\\(c\\), \
-\\(A\\)], \\((d)\\)]\\)\"\>", "0.49999863579014325`"},
+\\(A\\)], \\((d)\\)]\\)\"\>", "0.49999143157108045`"},
     {"\<\"\\!\\(TraditionalForm\\`\\*SuperscriptBox[SubscriptBox[\\(c\\), \
 \\(A\\)], \\((s)\\)]\\)\"\>", 
-     RowBox[{"-", "1.3642098567201184`*^-6"}]}
+     RowBox[{"-", "8.568428919512134`*^-6"}]}
    },
    AutoDelete->False,
    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
@@ -404,12 +468,16 @@ Cell[BoxData[
    3.671183615373672*^9, 3.671184188038782*^9, {3.6711843066949463`*^9, 
    3.6711843431704617`*^9}, 3.671184376758213*^9, 3.671184408997374*^9, 
    3.671184722883297*^9, 3.671184800623742*^9, 3.671196999964692*^9, 
-   3.67134684268981*^9, 3.671355333949316*^9},
- Background->GrayLevel[0.85]]
+   3.67134684268981*^9, 3.671355333949316*^9, 3.672125152976365*^9, 
+   3.6721251923627577`*^9, 3.67212526848536*^9, 3.672125314958572*^9, 
+   3.6724839867455673`*^9, {3.672484284544224*^9, 3.67248431659686*^9}, 
+   3.6724843950390873`*^9, 3.672484480918132*^9, {3.672486090096201*^9, 
+   3.6724860998767014`*^9}, 3.67248644344811*^9, {3.672486532526661*^9, 
+   3.67248654205794*^9}}]
 }, Open  ]],
 
 Cell[TextData[{
- "Finally, let\[CloseCurlyQuote]s take a look at the value of the low-energy \
+ "Now, let\[CloseCurlyQuote]s take a look at the value of the low-energy \
 light quark couplings (evaluated at ",
  Cell[BoxData[
   FormBox[
@@ -424,77 +492,87 @@ light quark couplings (evaluated at ",
     SubscriptBox["m", "V"], "."}], TraditionalForm]]],
  " "
 }], "Text",
- CellChangeTimes->{{3.670047082134139*^9, 3.670047151769527*^9}}],
+ CellChangeTimes->{{3.670047082134139*^9, 3.670047151769527*^9}, {
+  3.6724837776520977`*^9, 3.6724837778597097`*^9}}],
 
 Cell[CellGroupData[{
 
-Cell[BoxData[{
+Cell[BoxData[
  RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Set", " ", "value", " ", "of", " ", "high", " ", "energy", " ", 
+    "couplings"}], "*)"}], "\[IndentingNewLine]", 
   RowBox[{
-   RowBox[{"chigh", " ", "=", " ", 
-    RowBox[{"setBenchmark", "[", "\"\<QuarksAxial\>\"", "]"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"plots", " ", "=", " ", 
-    RowBox[{"Table", "[", 
-     RowBox[{
-      RowBox[{"Plot", "[", 
-       RowBox[{
-        RowBox[{"{", 
-         RowBox[{
-          RowBox[{"DDCouplings", "[", 
-           RowBox[{"chigh", ",", 
-            RowBox[{"10", "^", 
-             SubscriptBox["lm", "V"]}]}], "]"}], "[", 
-          RowBox[{"[", "k", "]"}], "]"}], "}"}], ",", " ", 
-        RowBox[{"{", 
-         RowBox[{
-          SubscriptBox["lm", "V"], ",", " ", "0.0", ",", " ", "6.0"}], "}"}], 
-        ",", " ", 
-        RowBox[{"PlotTheme", "\[Rule]", "\"\<Scientific\>\""}], ",", " ", 
-        RowBox[{"FrameLabel", "\[Rule]", 
+   RowBox[{
+    RowBox[{"chigh", " ", "=", " ", 
+     RowBox[{"setBenchmark", "[", "\"\<QuarksAxial\>\"", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "Calculate", " ", "and", " ", "plot", " ", "low", " ", "energy", " ", 
+     "couplings"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"plots", " ", "=", " ", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"Plot", "[", 
+        RowBox[{
          RowBox[{"{", 
           RowBox[{
-          "\"\<\!\(\*SubscriptBox[\(Log\), \
+           RowBox[{"DDCouplingsQuarks", "[", 
+            RowBox[{"chigh", ",", 
+             RowBox[{"10", "^", 
+              SubscriptBox["lm", "V"]}]}], "]"}], "[", 
+           RowBox[{"[", "k", "]"}], "]"}], "}"}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{
+           SubscriptBox["lm", "V"], ",", " ", "0.0", ",", " ", "6.0"}], "}"}],
+          ",", " ", 
+         RowBox[{"PlotTheme", "\[Rule]", "\"\<Scientific\>\""}], ",", " ", 
+         RowBox[{"FrameLabel", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{
+           "\"\<\!\(\*SubscriptBox[\(Log\), \
 \(10\)]\)[\!\(\*SubscriptBox[\(m\), \(V\)]\)/GeV]\>\"", ",", " ", 
-           RowBox[{"clabels", "[", 
-            RowBox[{"[", "k", "]"}], "]"}]}], "}"}]}], ",", " ", 
-        RowBox[{"PlotRangePadding", "\[Rule]", ".1"}], ",", 
-        RowBox[{"ImageSize", "\[Rule]", "300"}], ",", " ", 
-        RowBox[{"GridLines", "\[Rule]", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"{", 
-            RowBox[{"Log10", "[", "91.1875", "]"}], "}"}], ",", 
-           RowBox[{"{", "}"}]}], "}"}]}], ",", " ", 
-        RowBox[{"BaseStyle", "\[Rule]", 
-         RowBox[{"{", 
-          RowBox[{"FontSize", "\[Rule]", "16"}], "}"}]}]}], "]"}], ",", " ", 
-      RowBox[{"{", 
-       RowBox[{"k", ",", "5"}], "}"}]}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{"GraphicsGrid", "[", 
-  RowBox[{
-   RowBox[{"{", 
+            RowBox[{"clabels", "[", 
+             RowBox[{"[", "k", "]"}], "]"}]}], "}"}]}], ",", " ", 
+         RowBox[{"PlotRangePadding", "\[Rule]", ".1"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "300"}], ",", " ", 
+         RowBox[{"GridLines", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"Log10", "[", "91.1875", "]"}], "}"}], ",", 
+            RowBox[{"{", "}"}]}], "}"}]}], ",", " ", 
+         RowBox[{"BaseStyle", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"FontSize", "\[Rule]", "16"}], "}"}]}]}], "]"}], ",", " ", 
+       
+       RowBox[{"{", 
+        RowBox[{"k", ",", "5"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"GraphicsGrid", "[", 
     RowBox[{
      RowBox[{"{", 
       RowBox[{
-       RowBox[{"plots", "[", 
-        RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
-       RowBox[{"plots", "[", 
-        RowBox[{"[", "3", "]"}], "]"}]}], "}"}], ",", 
-     RowBox[{"{", " ", 
-      RowBox[{
-       RowBox[{"plots", "[", 
-        RowBox[{"[", "2", "]"}], "]"}], ",", 
-       RowBox[{"plots", "[", 
-        RowBox[{"[", "4", "]"}], "]"}]}], "}"}], ",", " ", 
-     RowBox[{"{", 
-      RowBox[{",", 
-       RowBox[{"plots", "[", 
-        RowBox[{"[", "5", "]"}], "]"}]}], "}"}]}], "}"}], ",", " ", 
-   RowBox[{"Spacings", "\[Rule]", "0.0"}]}], "]"}]}], "Input",
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"plots", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
+         RowBox[{"plots", "[", 
+          RowBox[{"[", "3", "]"}], "]"}]}], "}"}], ",", 
+       RowBox[{"{", " ", 
+        RowBox[{
+         RowBox[{"plots", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], ",", 
+         RowBox[{"plots", "[", 
+          RowBox[{"[", "4", "]"}], "]"}]}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{",", 
+         RowBox[{"plots", "[", 
+          RowBox[{"[", "5", "]"}], "]"}]}], "}"}]}], "}"}], ",", " ", 
+     RowBox[{"Spacings", "\[Rule]", "0.0"}]}], "]"}]}]}]], "Input",
  CellChangeTimes->{{3.67004716164748*^9, 3.670047454425517*^9}, {
    3.670047488828219*^9, 3.670047523406551*^9}, {3.6700475923083*^9, 
    3.670047642396781*^9}, {3.670047711535983*^9, 3.670047808032022*^9}, {
@@ -515,7 +593,9 @@ Cell[BoxData[{
    3.671183221000731*^9, 3.6711832719238787`*^9}, {3.671184807424912*^9, 
    3.6711848633266153`*^9}, {3.671184968623341*^9, 3.671185002231534*^9}, {
    3.671185155012187*^9, 3.671185155352386*^9}, {3.671185190177367*^9, 
-   3.671185270205374*^9}},
+   3.671185270205374*^9}, {3.672124160491255*^9, 3.6721241613065557`*^9}, {
+   3.672484323962802*^9, 3.672484391719719*^9}, {3.6724876726528378`*^9, 
+   3.6724876956253567`*^9}},
  Background->GrayLevel[0.85]],
 
 Cell[BoxData[
@@ -913,7 +993,127 @@ ZtYU8OVzy3MXCRTXVJ5Rj72sM5xw9xveP5n8RNqGgh+2b3XtWCaQTIDz1D7s
    3.671185003251429*^9, 3.671185102708867*^9, 3.671185157102055*^9, 
    3.671185220641081*^9, {3.6711852594350557`*^9, 3.671185264881349*^9}, 
    3.671197000729053*^9, 3.6713468434818697`*^9, 3.671346951421247*^9, 
-   3.671355334572361*^9}]
+   3.671355334572361*^9, 3.6721251539498253`*^9, 3.672125192990279*^9, 
+   3.672125269144951*^9, 3.672125315608736*^9, 3.672483987581854*^9, {
+   3.672484285162588*^9, 3.6724843957449837`*^9}, 3.672484481740148*^9, {
+   3.6724860908183393`*^9, 3.6724861005551243`*^9}, 3.6724864441575623`*^9, {
+   3.67248653327423*^9, 3.672486542696121*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+DDCouplingsNR: calculating low energy non-relativistic DM-nucleon couplings\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.672125444232173*^9, 3.672125467155197*^9}}],
+
+Cell[TextData[{
+ "The function DDCouplingsNR[c, E1, mx, DMcurrent, N] calculates the running \
+of the operators to the nuclear energy scale, but it also performs the \
+embedding of the quarks in the nucleon (N = \[OpenCurlyQuote]p\
+\[CloseCurlyQuote], \[OpenCurlyQuote]n\[CloseCurlyQuote]) and the matching \
+onto the non-relativisitic (NR) DM-nucleon operators, defined in ",
+ ButtonBox["arXiv:1203.3542",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://arxiv.org/abs/1203.3542"], None},
+  ButtonNote->"http://arxiv.org/abs/1203.3542"],
+ ". In order to perform the matching, the user must specify mx (DM mass in \
+GeV) and DMcurrent, the DM interaction structure. The meanings of the \
+possible interactions structures (\[OpenCurlyDoubleQuote]scalar\
+\[CloseCurlyDoubleQuote], \[OpenCurlyDoubleQuote]vector\
+\[CloseCurlyDoubleQuote] and \[OpenCurlyDoubleQuote]axial-vector\
+\[CloseCurlyDoubleQuote]) are given in Eq. 8 of the manual.\n\nThe output is \
+a list of coefficients of the first 12 NR operators, with numbering matching \
+that of ",
+ ButtonBox["arXiv:1203.3542:",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://arxiv.org/abs/1203.3542"], None},
+  ButtonNote->"http://arxiv.org/abs/1203.3542"]
+}], "Text",
+ CellChangeTimes->{{3.6721241883440237`*^9, 3.6721242478306427`*^9}, {
+  3.672124572249378*^9, 3.672124638949328*^9}, {3.672124669601375*^9, 
+  3.672124758378381*^9}, {3.672124834509644*^9, 3.672124842260027*^9}, {
+  3.672124883550777*^9, 3.6721249602311897`*^9}, {3.672483926818461*^9, 
+  3.672483970005063*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Set", " ", "high", " ", "energy", " ", "couplings"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"chigh", " ", "=", " ", 
+     RowBox[{"setBenchmark", "[", "\"\<QuarksAxial\>\"", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Set", " ", "DM", " ", "parameters"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"E1", " ", "=", " ", "10000"}], ";", " ", 
+    RowBox[{"mx", " ", "=", " ", "100"}], ";", " ", 
+    RowBox[{"DMcurrent", " ", "=", " ", "\"\<vector\>\""}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<NR DM-proton couplings: \>\"", " ", "<>", " ", 
+      RowBox[{"ToString", "[", 
+       RowBox[{
+        RowBox[{"DDCouplingsNR", "[", 
+         RowBox[{
+         "chigh", ",", " ", "E1", ",", " ", "mx", ",", " ", "DMcurrent", ",", 
+          " ", "\"\<p\>\""}], "]"}], ",", " ", "StandardForm"}], "]"}]}], 
+     "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<NR DM-neutron couplings: \>\"", " ", "<>", " ", 
+      RowBox[{"ToString", "[", 
+       RowBox[{
+        RowBox[{"DDCouplingsNR", "[", 
+         RowBox[{
+         "chigh", ",", " ", "E1", ",", " ", "mx", ",", " ", "DMcurrent", ",", 
+          " ", "\"\<n\>\""}], "]"}], ",", " ", "StandardForm"}], "]"}]}], 
+     "]"}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.6721249647096853`*^9, 3.67212512897332*^9}, {
+  3.672125171416809*^9, 3.672125205215561*^9}, {3.672471017010722*^9, 
+  3.672471019783518*^9}, {3.6724710657051*^9, 3.6724710820585957`*^9}, {
+  3.672486412046143*^9, 3.672486421260448*^9}},
+ Background->GrayLevel[0.85]],
+
+Cell[BoxData["\<\"NR DM-proton couplings: \\!\\(\\*RowBox[{\\\"{\\\", \
+RowBox[{\\\"2.295957202589596`*^-8\\\", \\\",\\\", \\\"0\\\", \\\",\\\", \
+\\\"0\\\", \\\",\\\", \\\"0\\\", \\\",\\\", \\\"0\\\", \\\",\\\", \\\"0\\\", \
+\\\",\\\", RowBox[{\\\"-\\\", \\\"1.5482464004769554`*^-6\\\"}], \\\",\\\", \
+\\\"0\\\", \\\",\\\", \\\"1.5482464004769555`*^-8\\\", \\\",\\\", \\\"0\\\", \
+\\\",\\\", \\\"0\\\", \\\",\\\", \\\"0\\\"}], \\\"}\\\"}]\\)\"\>"], "Print",
+ CellChangeTimes->{
+  3.672125154317037*^9, {3.672125193065342*^9, 3.672125205587049*^9}, 
+   3.672125269221189*^9, 3.672125315690172*^9, 3.672483987957234*^9, {
+   3.672484285227438*^9, 3.672484317331276*^9}, 3.672484395822692*^9, 
+   3.672484481855874*^9, {3.672486090887298*^9, 3.672486100674021*^9}, 
+   3.672486195037668*^9, {3.672486414901363*^9, 3.672486444250198*^9}, {
+   3.6724865334070463`*^9, 3.672486542803727*^9}}],
+
+Cell[BoxData["\<\"NR DM-neutron couplings: \\!\\(\\*RowBox[{\\\"{\\\", \
+RowBox[{RowBox[{\\\"-\\\", \\\"4.6879145019963383`*^-7\\\"}], \\\",\\\", \
+\\\"0\\\", \\\",\\\", \\\"0\\\", \\\",\\\", \\\"0\\\", \\\",\\\", \\\"0\\\", \
+\\\",\\\", \\\"0\\\", \\\",\\\", RowBox[{\\\"-\\\", \
+\\\"3.948458625499087`*^-6\\\"}], \\\",\\\", \\\"0\\\", \\\",\\\", \
+\\\"3.948458625499087`*^-8\\\", \\\",\\\", \\\"0\\\", \\\",\\\", \\\"0\\\", \
+\\\",\\\", \\\"0\\\"}], \\\"}\\\"}]\\)\"\>"], "Print",
+ CellChangeTimes->{
+  3.672125154317037*^9, {3.672125193065342*^9, 3.672125205587049*^9}, 
+   3.672125269221189*^9, 3.672125315690172*^9, 3.672483987957234*^9, {
+   3.672484285227438*^9, 3.672484317331276*^9}, 3.672484395822692*^9, 
+   3.672484481855874*^9, {3.672486090887298*^9, 3.672486100674021*^9}, 
+   3.672486195037668*^9, {3.672486414901363*^9, 3.672486444250198*^9}, {
+   3.6724865334070463`*^9, 3.672486542808906*^9}}]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 },
@@ -936,36 +1136,54 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[557, 20, 165, 2, 47, "Text"],
+Cell[557, 20, 230, 3, 47, "Text"],
 Cell[CellGroupData[{
-Cell[747, 26, 721, 14, 125, "Text"],
-Cell[1471, 42, 241, 3, 30, "Text"],
-Cell[1715, 47, 1052, 18, 44, "Input"],
-Cell[2770, 67, 329, 6, 49, "Text"],
+Cell[812, 27, 1163, 20, 182, "Text"],
 Cell[CellGroupData[{
-Cell[3124, 77, 1165, 26, 113, "Input"],
-Cell[4292, 105, 1114, 16, 54, "Print"],
-Cell[5409, 123, 1103, 16, 54, "Print"]
+Cell[2000, 51, 133, 1, 37, "Text"],
+Cell[2136, 54, 287, 3, 30, "Text"],
+Cell[2426, 59, 1052, 18, 44, "Input"],
+Cell[3481, 79, 433, 8, 68, "Text"],
+Cell[CellGroupData[{
+Cell[3939, 91, 1165, 26, 113, "Input"],
+Cell[5107, 119, 1426, 20, 38, "Print"],
+Cell[6536, 141, 1413, 20, 38, "Print"]
 }, Open  ]],
-Cell[6527, 142, 409, 8, 49, "Text"],
+Cell[7964, 164, 409, 8, 49, "Text"],
 Cell[CellGroupData[{
-Cell[6961, 154, 947, 23, 96, "Input"],
-Cell[7911, 179, 918, 13, 38, "Print"]
+Cell[8398, 176, 947, 23, 96, "Input"],
+Cell[9348, 201, 1228, 17, 22, "Print"]
+}, Open  ]]
 }, Open  ]],
-Cell[8844, 195, 2110, 61, 173, "Text"],
 Cell[CellGroupData[{
-Cell[10979, 260, 814, 17, 62, "Input"],
-Cell[11796, 279, 911, 17, 77, "Output"]
+Cell[10625, 224, 166, 2, 37, "Text"],
+Cell[10794, 228, 2123, 60, 173, "Text"],
+Cell[CellGroupData[{
+Cell[12942, 292, 1104, 25, 79, "Input"],
+Cell[14049, 319, 1280, 22, 77, "Output"]
+}, Open  ]]
 }, Open  ]],
-Cell[12722, 299, 1673, 43, 96, "Text"],
 Cell[CellGroupData[{
-Cell[14420, 346, 1396, 31, 102, "Input"],
-Cell[15819, 379, 1627, 28, 123, "Output"]
+Cell[15378, 347, 180, 2, 37, "Text"],
+Cell[15561, 351, 1770, 44, 115, "Text"],
+Cell[CellGroupData[{
+Cell[17356, 399, 1803, 42, 136, "Input"],
+Cell[19162, 443, 1935, 32, 107, "Output"]
 }, Open  ]],
-Cell[17461, 410, 495, 16, 51, "Text"],
+Cell[21112, 478, 544, 17, 51, "Text"],
 Cell[CellGroupData[{
-Cell[17981, 430, 3937, 88, 199, "Input"],
-Cell[21921, 520, 21099, 395, 583, "Output"]
+Cell[21681, 499, 4493, 99, 233, "Input"],
+Cell[26177, 600, 21416, 399, 583, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[47642, 1005, 174, 3, 35, "Subsubsection"],
+Cell[47819, 1010, 1550, 29, 182, "Text"],
+Cell[CellGroupData[{
+Cell[49394, 1043, 1740, 42, 198, "Input"],
+Cell[51137, 1087, 888, 12, 42, "Print"],
+Cell[52028, 1101, 911, 13, 42, "Print"]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }
