@@ -3,7 +3,8 @@
 runDM version 1.0 [Python implementation]
 
 Calculate low energy DM-SM couplings from high energy couplings,
-taking into account RG evolution due to SM loops.
+taking into account RG evolution due to SM loops. See
+arXiv:1605.04917 for further details.
 
 Please contact Bradley Kavanagh (bradkav@gmail.com) for any questions,
 problems, bugs and suggestions.

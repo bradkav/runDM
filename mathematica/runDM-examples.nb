@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     54722,       1184]
-NotebookOptionsPosition[     52979,       1119]
-NotebookOutlinePosition[     53376,       1137]
-CellTagsIndexPosition[     53333,       1134]
+NotebookDataLength[     54934,       1191]
+NotebookOptionsPosition[     53191,       1126]
+NotebookOutlinePosition[     53588,       1144]
+CellTagsIndexPosition[     53545,       1141]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -39,13 +39,20 @@ fields at high energy, the code can be used to calculate the couplings at low \
 energy, taking into account the mixing of all dimension-6 operators. The code \
 can also be used to extract the operator coefficients relevant for direct \
 detection, namely low energy couplings to up, down and strange quarks and to \
-protons and neutrons. See the manual and arXiv:1605.XXXXX for more details."
+protons and neutrons. See the manual and ",
+ ButtonBox["arXiv:1605.04917",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://arxiv.org/abs/1605.04917"], None},
+  ButtonNote->"http://arxiv.org/abs/1605.04917"],
+ " for more details."
 }], "Text",
  CellChangeTimes->{{3.669890279695353*^9, 3.6698902881684923`*^9}, {
    3.6698903334911203`*^9, 3.669890376477219*^9}, 3.670046429880863*^9, {
    3.672125227441559*^9, 3.672125241536643*^9}, {3.6721255028970747`*^9, 
    3.672125514830121*^9}, 3.672475680183855*^9, {3.672483462707242*^9, 
-   3.672483462938538*^9}, 3.672483526192295*^9}],
+   3.672483462938538*^9}, 3.672483526192295*^9, {3.67254366596982*^9, 
+   3.672543681356791*^9}}],
 
 Cell[CellGroupData[{
 
@@ -1138,51 +1145,51 @@ CellTagsIndex->{}
 Notebook[{
 Cell[557, 20, 230, 3, 47, "Text"],
 Cell[CellGroupData[{
-Cell[812, 27, 1163, 20, 182, "Text"],
+Cell[812, 27, 1375, 27, 182, "Text"],
 Cell[CellGroupData[{
-Cell[2000, 51, 133, 1, 37, "Text"],
-Cell[2136, 54, 287, 3, 30, "Text"],
-Cell[2426, 59, 1052, 18, 44, "Input"],
-Cell[3481, 79, 433, 8, 68, "Text"],
+Cell[2212, 58, 133, 1, 37, "Text"],
+Cell[2348, 61, 287, 3, 30, "Text"],
+Cell[2638, 66, 1052, 18, 44, "Input"],
+Cell[3693, 86, 433, 8, 68, "Text"],
 Cell[CellGroupData[{
-Cell[3939, 91, 1165, 26, 113, "Input"],
-Cell[5107, 119, 1426, 20, 38, "Print"],
-Cell[6536, 141, 1413, 20, 38, "Print"]
+Cell[4151, 98, 1165, 26, 113, "Input"],
+Cell[5319, 126, 1426, 20, 38, "Print"],
+Cell[6748, 148, 1413, 20, 38, "Print"]
 }, Open  ]],
-Cell[7964, 164, 409, 8, 49, "Text"],
+Cell[8176, 171, 409, 8, 49, "Text"],
 Cell[CellGroupData[{
-Cell[8398, 176, 947, 23, 96, "Input"],
-Cell[9348, 201, 1228, 17, 22, "Print"]
+Cell[8610, 183, 947, 23, 96, "Input"],
+Cell[9560, 208, 1228, 17, 22, "Print"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[10625, 224, 166, 2, 37, "Text"],
-Cell[10794, 228, 2123, 60, 173, "Text"],
+Cell[10837, 231, 166, 2, 37, "Text"],
+Cell[11006, 235, 2123, 60, 173, "Text"],
 Cell[CellGroupData[{
-Cell[12942, 292, 1104, 25, 79, "Input"],
-Cell[14049, 319, 1280, 22, 77, "Output"]
+Cell[13154, 299, 1104, 25, 79, "Input"],
+Cell[14261, 326, 1280, 22, 77, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[15378, 347, 180, 2, 37, "Text"],
-Cell[15561, 351, 1770, 44, 115, "Text"],
+Cell[15590, 354, 180, 2, 37, "Text"],
+Cell[15773, 358, 1770, 44, 115, "Text"],
 Cell[CellGroupData[{
-Cell[17356, 399, 1803, 42, 136, "Input"],
-Cell[19162, 443, 1935, 32, 107, "Output"]
+Cell[17568, 406, 1803, 42, 136, "Input"],
+Cell[19374, 450, 1935, 32, 107, "Output"]
 }, Open  ]],
-Cell[21112, 478, 544, 17, 51, "Text"],
+Cell[21324, 485, 544, 17, 51, "Text"],
 Cell[CellGroupData[{
-Cell[21681, 499, 4493, 99, 233, "Input"],
-Cell[26177, 600, 21416, 399, 583, "Output"]
+Cell[21893, 506, 4493, 99, 233, "Input"],
+Cell[26389, 607, 21416, 399, 583, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[47642, 1005, 174, 3, 35, "Subsubsection"],
-Cell[47819, 1010, 1550, 29, 182, "Text"],
+Cell[47854, 1012, 174, 3, 35, "Subsubsection"],
+Cell[48031, 1017, 1550, 29, 182, "Text"],
 Cell[CellGroupData[{
-Cell[49394, 1043, 1740, 42, 198, "Input"],
-Cell[51137, 1087, 888, 12, 42, "Print"],
-Cell[52028, 1101, 911, 13, 42, "Print"]
+Cell[49606, 1050, 1740, 42, 198, "Input"],
+Cell[51349, 1094, 888, 12, 42, "Print"],
+Cell[52240, 1108, 911, 13, 42, "Print"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]

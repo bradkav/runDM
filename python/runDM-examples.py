@@ -1,8 +1,9 @@
 """
 runDM-examples.py
 
-Example script for the python implementation of runDM v1.0. See also the 
-runDM-examples.ipynb ipython notebook for more detailed explanations.
+Example script for the python implementation of runDM v1.0. See also 
+arXiv:1605.04917 or the runDM-examples.ipynb ipython notebook for 
+more detailed explanations.
 
 Please contact Bradley Kavanagh (bradkav@gmail.com) for any questions,
 problems, bugs and suggestions.
