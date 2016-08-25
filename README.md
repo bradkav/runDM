@@ -20,6 +20,6 @@ making sure to include the correct version number. Please also cite the associat
 
 >F. D’Eramo & M. Procura, Connecting Dark Matter UV Complete Models to Direct Detection Rates via Effective Field Theory, JHEP 1504 (2015) 054 [arXiv:1411.3342],
 
->F. D’Eramo, B. J. Kavanagh & P. Panci, You can hide but you have to run: direct detection with vector mediators, (2016) [arXiv:1605.04917].
+>F. D’Eramo, B. J. Kavanagh & P. Panci, You can hide but you have to run: direct detection with vector mediators, JHEP 1608 (2016) 111 [arXiv:1605.04917].
 
 Please contact Bradley Kavanagh (bradkav@gmail.com) for any questions, problems, bugs and suggestions.
