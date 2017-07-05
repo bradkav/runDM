@@ -1,5 +1,7 @@
 # runDM
 
+[![arXiv](https://img.shields.io/badge/arXiv-1605.04917-B31B1B.svg)](http://arxiv.org/abs/1605.04917) [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+
 *With runDMC, It's Tricky. With runDM, it's not.*
 
 `runDM` is a tool for calculating the running of the couplings of Dark Matter (DM) to the Standard Model (SM) in simplified models with vector mediators. By specifying the mass of the mediator and the couplings of the mediator to SM fields at high energy, the code can be used to calculate the couplings at low energy, taking into account the mixing of all dimension-6 operators. The code can also be used to extract the operator coefficients relevant for direct detection, namely low energy couplings to up, down and strange quarks and to protons and neutrons. Further details about the physics behind the code can be found in Appendix B of [arXiv:1605.04917](http://arxiv.org/abs/1605.04917).
