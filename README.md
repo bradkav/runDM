@@ -1,6 +1,6 @@
 # runDM
 
-[![arXiv](https://img.shields.io/badge/arXiv-1605.04917-B31B1B.svg)](http://arxiv.org/abs/1605.04917) [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.823249.svg)](https://doi.org/10.5281/zenodo.823249) [![arXiv](https://img.shields.io/badge/arXiv-1605.04917-B31B1B.svg)](http://arxiv.org/abs/1605.04917) [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 *With runDMC, It's Tricky. With runDM, it's not.*
 
