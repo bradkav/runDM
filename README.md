@@ -14,7 +14,7 @@ At present, the code is written in two languages: *Mathematica* and *Python*. If
 
 If you make use of `runDM` in your own work, please cite it as:
 
->F. D’Eramo, B. J. Kavanagh & P. Panci (2016). runDM (Version X.X) [Computer software]. Available at https://github.com/bradkav/runDM/
+>F. D’Eramo, B. J. Kavanagh & P. Panci (2016). runDM (Version X.X) [Computer software], doi:10.5281/zenodo.823249. Available at https://github.com/bradkav/runDM/
 
 making sure to include the correct version number. Please also cite the associated papers:
 
