@@ -8,12 +8,12 @@ more detailed explanations.
 Please contact Bradley Kavanagh (bradkav@gmail.com) for any questions,
 problems, bugs and suggestions.
 """
+from __future__ import print_function
 
 import numpy as np
 import matplotlib
 
 from matplotlib import pyplot as pl
-
 
 
 #Import the runDM module
@@ -22,10 +22,10 @@ import runDM
 #First, let's specify the high-energy couplings. This will be an 1-D array with 16 elements. runDM comes with a number of pre-defined benchmarks, which can be accessed using setBenchmark.
 
 c_high = runDM.setBenchmark("UniversalVector")
-print "Vector coupling to all SM fermions:", c_high, "\n"
+print("Vector coupling to all SM fermions:", c_high, "\n")
 
 c_high = runDM.setBenchmark("QuarksAxial")
-print "Axial-vector coupling to all quarks:", c_high, "\n"
+print("Axial-vector coupling to all quarks:", c_high, "\n")
 
 
 #Alternatively, you can specify each coupling individually. You can use InitCouplings() to generate an empty array of couplings and then go ahead. But any array of 16 elements with do.
@@ -34,14 +34,14 @@ c_high = runDM.initCouplings()
 c_high[0] = 1.0
 c_high[1] = -1.0
 c_high[12] = 1.0
-print "User-defined couplings:", c_high, "\n"
+print("User-defined couplings:", c_high, "\n")
 
 #From these high energy couplings (defined at some energy E_1), you can obtain the couplings at a different energy scale E_2 by using runCouplings(c, E_1, E_2). See the manual for more details on runCouplings.
 
 E1 = 1000
 E2 = 1
 c_low = runDM.runCouplings(c_high, E1, E2)
-print "Low energy couplings:", c_low, "\n"
+print("Low energy couplings:", c_low, "\n")
 
 #If we're only interested in direct detection experiments, we can use the function DDCouplingsQuarks(c, E_1). In this case, the code evolves the couplings from energy $E_1$, down to the nuclear energy scale ~ 1 GeV. The output is an array with 5 elements, the vector and axial-vector couplings to the light quarks.
 
@@ -50,8 +50,8 @@ c_q = runDM.DDCouplingsQuarks(c_high, E1)
 couplings_str = ['c_V^u','c_V^d','c_A^u','c_A^d','c_A^s']
 
 for k in range(5):
-    print couplings_str[k], "=", c_q[k]
-print " "
+    print(couplings_str[k], "=", c_q[k])
+print(" ")
 
 #Finally, let's take a look at the value of the low-energy light quark couplings (evaluated at mu_N ~ 1 GeV) as a function of the mediator mass m_V. 
 
@@ -91,9 +91,9 @@ chigh = runDM.setBenchmark("QuarksAxial")
 
 #Set DM parameters
 E1 = 10000; mx = 100; DMcurrent = "vector";
-print "NR DM-proton couplings:", \
-    runDM.DDCouplingsNR(chigh, E1, mx, DMcurrent, "p")
-print "NR DM-neutron couplings:", \
-    runDM.DDCouplingsNR(chigh, E1, mx, DMcurrent, "n")
+print("NR DM-proton couplings:", \
+    runDM.DDCouplingsNR(chigh, E1, mx, DMcurrent, "p"))
+print("NR DM-neutron couplings:", \
+    runDM.DDCouplingsNR(chigh, E1, mx, DMcurrent, "n"))
     
 pl.show()

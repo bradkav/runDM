@@ -9,6 +9,7 @@ arXiv:1605.04917 for further details.
 Please contact Bradley Kavanagh (bradkav@gmail.com) for any questions,
 problems, bugs and suggestions.
 """
+from __future__ import print_function
 
 import numpy as np
 from scipy import linalg
@@ -101,9 +102,9 @@ def setBenchmark(benchmarkID):
         return np.array([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-1.0,1.0,1.0,-1.0,1.0,0.0])
     
     else:
-        print " Error in runDM.setbenchmark: benchmarkID <<", benchmarkID, ">> not found..."
-        print " Options are: 'Higgs', 'UniversalVector', 'UniversalAxial', 'QuarksVector', 'QuarksAxial', 'LeptonsVector', 'LeptonsAxial', 'ThirdVector', 'ThirdAxial'..."
-        print " Returning empty coupling vector..."
+        print(" Error in runDM.setbenchmark: benchmarkID <<", benchmarkID, ">> not found...")
+        print(" Options are: 'Higgs', 'UniversalVector', 'UniversalAxial', 'QuarksVector', 'QuarksAxial', 'LeptonsVector', 'LeptonsAxial', 'ThirdVector', 'ThirdAxial'...")
+        print(" Returning empty coupling vector...")
         return np.zeros(16)
         
     
