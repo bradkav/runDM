@@ -31,13 +31,15 @@ t_EMSM = np.append(np.linspace(-4.51, 0.0,452)-0.003, 0)
 
 #Load in the evolution tables
 for i in range(1401):
-    s = str(t_SM[i])
+    #Truncate to a few decimal places, to prevent rounding errors in the filenames
+    s = str(np.around(t_SM[i], 3))
     if (t_SM[i] == int(t_SM[i])):
         s = str(int(t_SM[i]))
     EvolutionSM[:,:,i] = np.loadtxt('data/EvolutionSM_t=' + s + '.dat')
 
 for i in range(453):
-    s = str(t_EMSM[i])
+    #Truncate to a few decimal places, to prevent rounding errors in the filenames
+    s = str(np.around(t_EMSM[i], 3))
     if (t_EMSM[i] == int(t_EMSM[i])):
         s = str(int(t_EMSM[i]))
     EvolutionEMSM[:,:,i] = np.loadtxt('data/EvolutionEMSM_t=' + s + '.dat')
