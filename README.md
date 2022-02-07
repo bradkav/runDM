@@ -25,3 +25,27 @@ making sure to include the correct version number. Please also cite the associat
 >F. D’Eramo, B. J. Kavanagh & P. Panci, You can hide but you have to run: direct detection with vector mediators, JHEP 1608 (2016) 111 [arXiv:1605.04917].
 
 Please contact Bradley Kavanagh (bradkav@gmail.com) for any questions, problems, bugs and suggestions.
+
+------------
+
+`runDM` has been used in the following publications:
+
+- B. Barman et al., Catch 'em all: Effective Leptophilic WIMPs at the e+e− Collider, [arXiv:2109.10936](https://arxiv.org/abs/2109.10936)  
+- S. Basegmez du Pree, Robust Limits from Upcoming Neutrino Telescopes and Implications on Minimal Dark Matter Models, [arXiv:2103.01237](https://arxiv.org/abs/2103.01237)  
+- I. Bischer, T. Plehn, W. Rodejohann, Dark Matter EFT, the Third -- Neutrino WIMPs, [arXiv:2008.04718](https://arxiv.org/abs/2008.04718)
+- Q.-H. Cao, A.-K. Wei, Q.-F. Xiang, Dark Matter Search at Colliders and Neutrino Floor, [arXiv:2006.12768](https://arxiv.org/abs/2006.12768)  
+- W. Chao, Direct detections of Majorana dark matter in vector portal, [arXiv:1904.09785](https://arxiv.org/abs/1904.09785)  
+- M. Arteaga et al., Flavored Dark Sectors running to low energy, [arXiv:1810.04747](https://arxiv.org/abs/1810.04747)  
+- S. Kang et al., On the sensitivity of present direct detection experiments to WIMP-quark and WIMP-gluon effective interactions: a systematic assessment and new model-independent approaches, [arXiv:1810.00607](https://arxiv.org/abs/1810.00607)  
+- B. J. Kavanagh, P. Panci, R. Ziegler, Faint Light from Dark Matter: Classifying and Constraining Dark Matter-Photon Effective Operators, [arXiv:1810.00033](https://arxiv.org/abs/1810.00033)  
+- A. Belyaev et al., Interplay of the LHC and non-LHC Dark Matter searches in the Effective Field Theory approach, [arXiv:1807.03817](https://arxiv.org/abs/1807.03817)
+- A. Falkowski et al., Flavourful Z' portal for vector-like neutrino Dark Matter and RK(*), [arXiv:1803.04430](https://arxiv.org/abs/1803.04430)
+- G. Bertone et al., Identifying WIMP dark matter from particle and astroparticle data, [arXiv:1712.04793](https://arxiv.org/abs/1712.04793)
+- G. H. Duan et al., Simplified TeV leptophilic dark matter in light of DAMPE data, [arXiv:1711.11012](https://arxiv.org/abs/1711.11012)
+- S. Baum et al., Determining Dark Matter properties with a XENONnT/LZ signal and LHC-Run3 mono-jet searches, [arXiv:1709.06051](https://arxiv.org/abs/1709.06051)
+- E. Bertuzzo, C. J. Caniu Barros, G. Grilli di Cortona, MeV Dark Matter: Model Independent Bounds, [arXiv:1707.00725](https://arxiv.org/abs/1707.00725)
+- Y. Cui, F. D'Eramo, Surprises from Complete Vector Portal Theories: New Insights into the Dark Sector and its Interplay with Higgs Physics, [arXiv:1705.03897](https://arxiv.org/abs/1705.03897)
+- L. Roszkowski, S. Trojanowski, K. Turzynski, Towards understanding thermal history of the Universe through direct and indirect detection of dark matter, [arXiv:1703.00841](https://arxiv.org/abs/1703.00841)
+- F. D'Eramo, B. J. Kavanagh, P. Panci, Probing Leptophilic Dark Sectors with Hadronic Processes, [arXiv:1702.00016](https://arxiv.org/abs/1702.00016)
+- A. Celis, W.-Z. Feng, M. Vollmann, Dirac dark matter and b→sℓ+ℓ− with U(1) gauge symmetry, [arXiv:1608.03894](https://arxiv.org/abs/1608.03894)
+- F. D'Eramo, B. J. Kavanagh, P. Panci, You can hide but you have to run: direct detection with vector mediators, [arXiv:1605.04917](http://arxiv.org/abs/1605.04917)
